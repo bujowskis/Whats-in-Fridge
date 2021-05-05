@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/productListFragment">
+
+    <fragment
+        android:id="@+id/productListFragment"
+        android:name="com.example.whatsinfridge.fragments.productList.ProductListFragment"
+        android:label="List"
+        tools:layout="@layout/fragment_product_list" >
+        <action
+            android:id="@+id/action_productListFragment_to_addProductManuallyFragment"
+            app:destination="@id/addProductManuallyFragment" />
+        <action
+            android:id="@+id/action_productListFragment_to_updateProductFragment"
+            app:destination="@id/updateProductFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addProductManuallyFragment"
+        android:name="com.example.whatsinfridge.fragments.productAddManually.AddProductManuallyFragment"
+        android:label="Add"
+        tools:layout="@layout/fragment_add_product_manually" >
+        <action
+            android:id="@+id/action_addProductManuallyFragment_to_productListFragment"
+            app:destination="@id/productListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateProductFragment"
+        android:name="com.example.whatsinfridge.fragments.productUpdate.UpdateProductFragment"
+        android:label="Update"
+        tools:layout="@layout/fragment_update_product" >
+        <action
+            android:id="@+id/action_updateProductFragment_to_productListFragment"
+            app:destination="@id/productListFragment" />
+        <argument
+            android:name="currentProduct"
+            app:argType="com.example.whatsinfridge.data.model.ProductEntity" />
+    </fragment>
+</navigation>
