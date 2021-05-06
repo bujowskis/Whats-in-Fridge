@@ -81,9 +81,9 @@ class ProductListFragment : Fragment(),
         when (item.itemId) {
             // No need to listen for item_search
             R.id.item_delete_all -> deleteAllProducts()
-            //R.id.item_add_recipe -> TODO
-            //R.id.item_cancel -> TODO
-            //R.id.item_delete_selected -> TODO
+            R.id.item_add_recipe -> recyclerViewAdapter.addSelectedProductsToRecipe()
+            R.id.item_cancel -> recyclerViewAdapter.cancelSelection()
+            R.id.item_delete_selected -> recyclerViewAdapter.deleteSelectedProducts()
         }
 
         return super.onOptionsItemSelected(item)

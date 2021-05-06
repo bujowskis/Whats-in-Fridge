@@ -9,12 +9,18 @@ import com.example.whatsinfridge.R
 import com.example.whatsinfridge.data.model.ProductEntity
 import kotlinx.android.synthetic.main.recyclerview_product_layout.view.*
 
-class ProductListAdapter(private var itemVisibilityInterface: ItemVisibilityInterface): RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() { // TODO - move on and use a ListAdapter
+class ProductListAdapter(
+    private var itemVisibilityInterface: ItemVisibilityInterface
+): RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() { // TODO - move on and use a ListAdapter
 
     private var productList = emptyList<ProductEntity>()
     // For multi selection
     private var multiSelect = false
     private var selectedProducts = arrayListOf<ProductEntity>()
+
+    // TODO - check if that works
+    //private var selectedProductsAndHolders = arrayListOf<ProductAndHolder>()
+    private var selectedViews = arrayListOf<ProductViewHolder>()
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}
 
@@ -39,7 +45,6 @@ class ProductListAdapter(private var itemVisibilityInterface: ItemVisibilityInte
                 multiSelect = true
                 selectProduct(holder, currentProduct)
                 // Change visibility of menu items
-                // TODO
                 itemVisibilityInterface.multiSelectTrue()
             }
             true
@@ -60,21 +65,39 @@ class ProductListAdapter(private var itemVisibilityInterface: ItemVisibilityInte
     }
 
     // Helper method that handles MultiSelection
-    private fun selectProduct(holder: ProductListAdapter.ProductViewHolder, currentProductSelection: ProductEntity) {
+    private fun selectProduct(holder: ProductViewHolder, currentProduct: ProductEntity) {
         // Handle selection, based on current state
-        if (selectedProducts.contains(currentProductSelection)) {
-            selectedProducts.remove(currentProductSelection)
+        if (selectedProducts.contains(currentProduct)) {
+            selectedProducts.remove(currentProduct)
+            selectedViews.remove(holder)
             holder.itemView.alpha = 1.0f
+
             if (selectedProducts.isEmpty()) {
                 multiSelect = false
                 // Change visibility of menu items
-                // TODO
                 itemVisibilityInterface.multiSelectFalse()
             }
         } else {
-            selectedProducts.add(currentProductSelection)
+            selectedProducts.add(currentProduct)
+            selectedViews.add(holder)
             holder.itemView.alpha = 0.3f
         }
+    }
+
+    // Operations on the selected data
+    fun deleteSelectedProducts() {
+        // TODO
+
+    }
+    fun addSelectedProductsToRecipe() {
+        // TODO
+    }
+    fun cancelSelection() {
+        selectedProducts.clear()
+        multiSelect = false
+        itemVisibilityInterface.multiSelectFalse()
+        for (view in selectedViews) view.itemView.alpha = 1.0f
+        selectedViews.clear()
     }
 
     fun setData(product: List<ProductEntity>) {
@@ -82,4 +105,17 @@ class ProductListAdapter(private var itemVisibilityInterface: ItemVisibilityInte
         notifyDataSetChanged() // TODO - move on and use the method which skips this
     }
 
+}
+
+// To store both selected product and its holder
+class ProductAndHolder(
+    val productEntity: ProductEntity,
+    val productViewHolder: ProductListAdapter.ProductViewHolder
+) {
+    /* TODO - indexOf (?)
+    fun getPosition(list: ArrayList<ProductAndHolder>, productEntity: ProductEntity, productViewHolder: ProductListAdapter.ProductViewHolder) {
+        for ()
+    }
+
+     */
 }
