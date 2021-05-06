@@ -14,12 +14,19 @@ import com.example.whatsinfridge.R
 import com.example.whatsinfridge.data.viewmodel.ProductViewModel
 import kotlinx.android.synthetic.main.fragment_product_list.*
 
-class ProductListFragment : Fragment(), SearchView.OnQueryTextListener {
+class ProductListFragment : Fragment(),
+    SearchView.OnQueryTextListener,
+    ItemVisibilityInterface {
 
     private lateinit var mProductViewModel: ProductViewModel
+    private val recyclerViewAdapter: ProductListAdapter by lazy { ProductListAdapter(this) }
 
-    // To make the adapter global for the fragment TODO - migrate RecyclerView Adapter here completely
-    private val recyclerViewAdapter: ProductListAdapter by lazy { ProductListAdapter() }
+    // For menu item visibility changing
+    private var menuItemSearch: MenuItem? = null
+    private var menuItemDeleteAll: MenuItem? = null
+    private var menuItemAddRecipe: MenuItem? = null
+    private var menuItemCancel: MenuItem? = null
+    private var menuItemDeleteSelected: MenuItem? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +40,6 @@ class ProductListFragment : Fragment(), SearchView.OnQueryTextListener {
         super.onViewCreated(view, savedInstanceState)
 
         // RecyclerView
-        //val rvAdapter = ProductListAdapter()
         rvProducts.adapter = recyclerViewAdapter//rvAdapter
         rvProducts.layoutManager = LinearLayoutManager(requireContext())
 
@@ -48,6 +54,7 @@ class ProductListFragment : Fragment(), SearchView.OnQueryTextListener {
             findNavController().navigate(R.id.action_productListFragment_to_addProductManuallyFragment)
         }
 
+        // TODO - consider using ActionMode
         setHasOptionsMenu(true)
 
     }
@@ -56,21 +63,27 @@ class ProductListFragment : Fragment(), SearchView.OnQueryTextListener {
         // super.onCreateOptionsMenu(menu, inflater) TODO - is needed?
         inflater.inflate(R.menu.main_menu, menu)
 
-        // Implement searching as the menu option
+        // Implement searching
         val searchMatching = menu.findItem(R.id.item_search)
         val searchMatchingView = searchMatching?.actionView as? SearchView
         searchMatchingView?.isSubmitButtonEnabled = true // Enable submit button if query is not empty
         searchMatchingView?.setOnQueryTextListener(this)
 
-        //return true TODO - is needed?
+        // Store a reference to the items
+        menuItemSearch = menu.findItem(R.id.item_search)
+        menuItemDeleteAll = menu.findItem(R.id.item_delete_all)
+        menuItemAddRecipe = menu.findItem(R.id.item_add_recipe)
+        menuItemCancel = menu.findItem(R.id.item_cancel)
+        menuItemDeleteSelected = menu.findItem(R.id.item_delete_selected)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.item_delete) {
-            deleteAllProducts()
-        }
-        if (item.itemId == R.id.item_search) {
-
+        when (item.itemId) {
+            // No need to listen for item_search
+            R.id.item_delete_all -> deleteAllProducts()
+            //R.id.item_add_recipe -> TODO
+            //R.id.item_cancel -> TODO
+            //R.id.item_delete_selected -> TODO
         }
 
         return super.onOptionsItemSelected(item)
@@ -88,6 +101,25 @@ class ProductListFragment : Fragment(), SearchView.OnQueryTextListener {
             searchMatchingProducts(query)
         }
         return true
+    }
+
+    // For invoking changes in OptionsMenu, based on multi selection TODO - is this method fine?
+    override fun multiSelectTrue() {
+        // Show actions on selected products
+        menuItemAddRecipe?.isVisible = true
+        menuItemCancel?.isVisible = true
+        menuItemDeleteSelected?.isVisible = true
+        // Hide inapplicable actions
+        menuItemDeleteAll?.isVisible = false
+    }
+
+    override fun multiSelectFalse() {
+        // Hide actions on selected products
+        menuItemAddRecipe?.isVisible = false
+        menuItemCancel?.isVisible = false
+        menuItemDeleteSelected?.isVisible = false
+        // Show other applicable actions
+        menuItemDeleteAll?.isVisible = true
     }
 
     private fun searchMatchingProducts(query: String) {

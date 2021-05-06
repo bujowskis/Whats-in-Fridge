@@ -2,21 +2,45 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/item_search"
-        android:title="Wyszukaj"
+    <item
+        android:id="@+id/item_search"
         android:icon="@drawable/ic_search"
         android:iconTint="@color/white"
-        app:showAsAction="ifRoom"
+        android:title="Wyszukaj"
+        android:visible="true"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        android:visible="true" />
+        app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/item_delete"
-        android:title="Usuń wszystko"
+    <item
+        android:id="@+id/item_delete_all"
         android:icon="@drawable/ic_delete"
-        app:showAsAction="never"
         android:iconTint="@color/white"
-        android:visible="true" />
+        android:title="Usuń wszystko"
+        android:visible="true"
+        app:showAsAction="never" />
 
+    <item
+        android:id="@+id/item_add_recipe"
+        android:icon="@drawable/ic_add_recipe"
+        android:iconTint="@color/white"
+        android:title="Dodaj do przepisu"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/item_cancel"
+        android:icon="@drawable/ic_cancel"
+        android:iconTint="@color/white"
+        android:title="Anuluj"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/item_delete_selected"
+        android:icon="@drawable/ic_delete"
+        android:iconTint="@color/white"
+        android:title="Usuń zaznaczone"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
 
 </menu>
