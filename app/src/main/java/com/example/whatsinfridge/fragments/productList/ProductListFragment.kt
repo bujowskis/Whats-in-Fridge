@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.whatsinfridge.R
+import com.example.whatsinfridge.data.model.ProductEntity
 import com.example.whatsinfridge.data.viewmodel.ProductViewModel
 import kotlinx.android.synthetic.main.fragment_product_list.*
 
@@ -112,7 +113,6 @@ class ProductListFragment : Fragment(),
         // Hide inapplicable actions
         menuItemDeleteAll?.isVisible = false
     }
-
     override fun multiSelectFalse() {
         // Hide actions on selected products
         menuItemAddRecipe?.isVisible = false
@@ -120,6 +120,10 @@ class ProductListFragment : Fragment(),
         menuItemDeleteSelected?.isVisible = false
         // Show other applicable actions
         menuItemDeleteAll?.isVisible = true
+    }
+
+    override fun deleteSelectedProducts(products: ArrayList<ProductEntity>) {
+        for (product in products) mProductViewModel.deleteSingleProduct(product)
     }
 
     private fun searchMatchingProducts(query: String) {

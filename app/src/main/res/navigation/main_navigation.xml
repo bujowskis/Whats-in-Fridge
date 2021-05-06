@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/productListFragment"
         android:name="com.example.whatsinfridge.fragments.productList.ProductListFragment"
-        android:label="List"
+        android:label="Lista"
         tools:layout="@layout/fragment_product_list" >
         <action
             android:id="@+id/action_productListFragment_to_addProductManuallyFragment"
@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/addProductManuallyFragment"
         android:name="com.example.whatsinfridge.fragments.productAddManually.AddProductManuallyFragment"
-        android:label="Add"
+        android:label="Dodaj"
         tools:layout="@layout/fragment_add_product_manually" >
         <action
             android:id="@+id/action_addProductManuallyFragment_to_productListFragment"
@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/updateProductFragment"
         android:name="com.example.whatsinfridge.fragments.productUpdate.UpdateProductFragment"
-        android:label="Update"
+        android:label="Produkt"
         tools:layout="@layout/fragment_update_product" >
         <action
             android:id="@+id/action_updateProductFragment_to_productListFragment"

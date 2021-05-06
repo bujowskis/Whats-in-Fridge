@@ -17,9 +17,6 @@ class ProductListAdapter(
     // For multi selection
     private var multiSelect = false
     private var selectedProducts = arrayListOf<ProductEntity>()
-
-    // TODO - check if that works
-    //private var selectedProductsAndHolders = arrayListOf<ProductAndHolder>()
     private var selectedViews = arrayListOf<ProductViewHolder>()
 
     class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}
@@ -35,7 +32,7 @@ class ProductListAdapter(
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         // TODO - all needed values for a product entry
         val currentProduct = productList[position]
-        holder.itemView.tvId.text = currentProduct.id.toString()
+        //holder.itemView.tvId.text = currentProduct.id.toString()
         holder.itemView.tvName.text = currentProduct.name
         holder.itemView.tvExpirationDate.text = currentProduct.expirationDate
         holder.itemView.tvCategory.text = currentProduct.category
@@ -86,8 +83,12 @@ class ProductListAdapter(
 
     // Operations on the selected data
     fun deleteSelectedProducts() {
-        // TODO
-
+        for (view in selectedViews) view.itemView.alpha = 1.0f
+        selectedViews.clear()
+        itemVisibilityInterface.deleteSelectedProducts(selectedProducts)
+        selectedProducts.clear()
+        multiSelect = false
+        itemVisibilityInterface.multiSelectFalse()
     }
     fun addSelectedProductsToRecipe() {
         // TODO
@@ -105,17 +106,4 @@ class ProductListAdapter(
         notifyDataSetChanged() // TODO - move on and use the method which skips this
     }
 
-}
-
-// To store both selected product and its holder
-class ProductAndHolder(
-    val productEntity: ProductEntity,
-    val productViewHolder: ProductListAdapter.ProductViewHolder
-) {
-    /* TODO - indexOf (?)
-    fun getPosition(list: ArrayList<ProductAndHolder>, productEntity: ProductEntity, productViewHolder: ProductListAdapter.ProductViewHolder) {
-        for ()
-    }
-
-     */
 }
