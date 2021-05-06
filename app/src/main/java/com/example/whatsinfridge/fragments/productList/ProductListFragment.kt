@@ -47,7 +47,8 @@ class ProductListFragment : Fragment(),
         // ProductViewModel
         mProductViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         mProductViewModel.readAllData.observe(viewLifecycleOwner, Observer { product ->
-            recyclerViewAdapter.setData(product) // Observes changes in DB and invokes appropriate changes
+            // Observes changes in DB and invokes appropriate changes
+            recyclerViewAdapter.setData(product)
         })
 
         fabAddNewProduct.setOnClickListener {
@@ -55,7 +56,7 @@ class ProductListFragment : Fragment(),
             findNavController().navigate(R.id.action_productListFragment_to_addProductManuallyFragment)
         }
 
-        // TODO - consider using ActionMode
+        // TODO - consider using ActionMode (?)
         setHasOptionsMenu(true)
 
     }

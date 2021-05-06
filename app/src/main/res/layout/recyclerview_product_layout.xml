@@ -5,28 +5,16 @@
     android:id="@+id/rowProductLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="24sp">
+    android:padding="8sp">
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16sp"
+        android:layout_marginStart="8sp"
         android:text="name"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvExpirationDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16sp"
-        android:text="expiration date"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvName"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -36,8 +24,29 @@
         android:layout_marginStart="16sp"
         android:text="category"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvExpirationDate"
+        app:layout_constraintStart_toEndOf="@+id/tvName"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="amount"
+        android:textSize="16sp"
+        android:layout_marginTop="8sp"
+        app:layout_constraintTop_toBottomOf="@id/tvName"
+        app:layout_constraintStart_toStartOf="@+id/tvName"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <TextView
+        android:id="@+id/tvExpirationDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="expiration date"
+        android:textSize="16sp"
+        android:layout_marginStart="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvAmount"
+        app:layout_constraintTop_toTopOf="@id/tvAmount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

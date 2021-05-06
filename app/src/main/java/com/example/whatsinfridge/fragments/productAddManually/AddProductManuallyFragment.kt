@@ -42,9 +42,10 @@ class AddProductManuallyFragment : Fragment() {
         val name = etName.text.toString()
         val expirationDate = etExpirationDate.text.toString()
         val category = etCategory.text.toString()
+        val amount = etAmount.text.toString()
 
-        if (inputCheck(name, expirationDate, category)) {
-            val newProduct = ProductEntity(0, name, expirationDate, category)
+        if (inputCheck(name, expirationDate, category, amount)) {
+            val newProduct = ProductEntity(name, expirationDate, category, amount)
             mProductViewModel.addSingleProduct(newProduct)
             Toast.makeText(requireContext(), "Product added", Toast.LENGTH_SHORT).show()
         } else {
@@ -53,7 +54,7 @@ class AddProductManuallyFragment : Fragment() {
         findNavController().navigate(R.id.action_addProductManuallyFragment_to_productListFragment)
     }
 
-    private fun inputCheck(name: String, expirationDate: String, category: String): Boolean {
-        return !(TextUtils.isEmpty(name) && TextUtils.isEmpty(expirationDate) && TextUtils.isEmpty(category))
+    private fun inputCheck(name: String, expirationDate: String, category: String, amount: String): Boolean {
+        return !(TextUtils.isEmpty(name) && TextUtils.isEmpty(expirationDate) && TextUtils.isEmpty(category) && TextUtils.isEmpty(amount))
     }
 }

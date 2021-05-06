@@ -63,9 +63,10 @@ class UpdateProductFragment : Fragment() {
         val name = etUpdateName.text.toString()
         val expirationDate = etUpdateExpirationDate.text.toString()
         val category = etUpdateCategory.text.toString()
+        val amount = etUpdateAmount.text.toString()
 
         if (inputCheck(name, expirationDate, category)) {
-            val updatedProduct = ProductEntity(args.currentProduct.id, name, expirationDate, category)
+            val updatedProduct = ProductEntity(name, expirationDate, category, amount)
             mProductViewModel.updateProduct(updatedProduct)
             Toast.makeText(requireContext(), "Updated Product", Toast.LENGTH_SHORT).show()
         } else {

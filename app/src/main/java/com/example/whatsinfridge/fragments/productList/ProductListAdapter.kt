@@ -36,6 +36,7 @@ class ProductListAdapter(
         holder.itemView.tvName.text = currentProduct.name
         holder.itemView.tvExpirationDate.text = currentProduct.expirationDate
         holder.itemView.tvCategory.text = currentProduct.category
+        holder.itemView.tvAmount.text = currentProduct.amount
 
         holder.itemView.setOnLongClickListener {
             if (!multiSelect) {

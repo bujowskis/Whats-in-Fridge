@@ -13,8 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_marginTop="100dp"
-        android:hint="Name"
+        android:hint="Nazwa"
         android:inputType="textPersonName"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Expiration Date"
+        android:hint="Data ważności"
         android:inputType="date"
         android:layout_marginTop="16dp"
         android:textSize="24sp"
@@ -40,12 +39,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Category"
+        android:hint="Kategoria"
         android:inputType="textPersonName"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etExpirationDate" />
+
+    <EditText
+        android:id="@+id/etAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Ilość"
+        android:inputType="textPersonName"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etCategory" />
 
     <Button
         android:id="@+id/btnAdd"
@@ -53,9 +65,9 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:layout_marginTop="16dp"
-        android:text="Add"
+        android:text="Dodaj"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/etAmount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,9 +11,8 @@
         android:id="@+id/etUpdateName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:ems="10"
-        android:hint="Name"
+        android:hint="Nazwa"
         android:inputType="textPersonName"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Expiration Date"
+        android:hint="Data ważności"
         android:inputType="date"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,22 +38,35 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Category"
+        android:hint="Kategoria"
         android:inputType="textPersonName"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etUpdateExpirationDate" />
 
+    <EditText
+        android:id="@+id/etUpdateAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Ilość"
+        android:inputType="textPersonName"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etUpdateCategory" />
+
     <Button
         android:id="@+id/btnUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Update"
+        android:text="Zaktualizuj"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUpdateCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/etUpdateAmount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,14 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ProductDao {
 
+    // TODO - use 'upsert' instead of 'input' for both entry creation and update (?)
+
+    // TODO - filtered Queries for displaying categorized data
+    // TODO - update info about a product (e.g. 500g -> 200g)
+    // TODO - insert product into database by scanning a demo-encoded barcode
+    // TODO - insert multiple products into database by scanning a single demo-encoded barcode
+    // TODO - delete a single product from the database
+
     @Insert // TODO - onConflict strategy
     suspend fun addSingleProduct(product: ProductEntity)
 
