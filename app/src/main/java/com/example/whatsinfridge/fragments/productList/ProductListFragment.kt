@@ -3,6 +3,7 @@ package com.example.whatsinfridge.fragments.productList
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.*
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -17,7 +18,8 @@ import kotlinx.android.synthetic.main.fragment_product_list.*
 
 class ProductListFragment : Fragment(),
     SearchView.OnQueryTextListener,
-    ItemVisibilityInterface {
+    ItemVisibilityInterface,
+    PopupMenu.OnMenuItemClickListener {
 
     private lateinit var mProductViewModel: ProductViewModel
     private val recyclerViewAdapter: ProductListAdapter by lazy { ProductListAdapter(this) }
@@ -53,7 +55,13 @@ class ProductListFragment : Fragment(),
 
         fabAddNewProduct.setOnClickListener {
             // TODO - show Popup menu where user can choose manual or barcode adding
-            findNavController().navigate(R.id.action_productListFragment_to_addProductManuallyFragment)
+            //findNavController().navigate(R.id.action_productListFragment_to_addProductManuallyFragment)
+            // Show popup menu with options for adding products
+            val popupAddProduct = PopupMenu(requireContext(), fabAddNewProduct)
+            val popupAddProductInflater: MenuInflater = popupAddProduct.menuInflater
+            popupAddProductInflater.inflate(R.menu.add_product_popup_menu, popupAddProduct.menu)
+            popupAddProduct.show()
+            popupAddProduct.setOnMenuItemClickListener(this)
         }
 
         // TODO - consider using ActionMode (?)
@@ -79,16 +87,44 @@ class ProductListFragment : Fragment(),
         menuItemDeleteSelected = menu.findItem(R.id.item_delete_selected)
     }
 
+    // Handle item clicks in options menu
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             // No need to listen for item_search
             R.id.item_delete_all -> deleteAllProducts()
             R.id.item_add_recipe -> recyclerViewAdapter.addSelectedProductsToRecipe()
             R.id.item_cancel -> recyclerViewAdapter.cancelSelection()
-            R.id.item_delete_selected -> recyclerViewAdapter.deleteSelectedProducts()
+            R.id.item_delete_selected -> {
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setPositiveButton("Tak") { _, _ ->
+                    recyclerViewAdapter.deleteSelectedProducts()
+                    Toast.makeText(requireContext(), "Usunięto zaznaczone produkty", Toast.LENGTH_LONG).show()
+                }
+                builder.setNegativeButton("Nie") { _, _ ->
+
+                }
+                builder.setTitle("Usunąć zaznaczone?")
+                builder.setMessage("Czy na pewno chcesz usunąć zaznaczone produkty?")
+                builder.create().show()
+            }
         }
 
         return super.onOptionsItemSelected(item)
+    }
+    // Handle item clicks in add_product_popup_menu
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.item_add_manually -> {
+                findNavController().navigate(R.id.action_productListFragment_to_addProductManuallyFragment)
+                true
+            }
+            R.id.item_add_scan_qr -> {
+                // TODO
+                Toast.makeText(requireContext(), "Zeskanuj kod QR", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> false
+        }
     }
 
     // For searching the RecyclerView
@@ -96,7 +132,6 @@ class ProductListFragment : Fragment(),
         // Triggered only if we click submit button in SearchWidget
         return true
     }
-
     override fun onQueryTextChange(query: String?): Boolean {
         // Triggered every time we put some text in SearchWidget
         if (query != null) {

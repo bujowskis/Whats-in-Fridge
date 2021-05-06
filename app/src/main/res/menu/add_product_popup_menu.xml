@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- TODO - consider removing the icons -->
+
+    <item
+        android:id="@+id/item_add_manually"
+        android:icon="@drawable/ic_add_manually"
+        android:iconTint="@color/black"
+        android:title="Dodaj ręcznie"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/item_add_scan_qr"
+        android:icon="@drawable/ic_add_scan_qr"
+        android:iconTint="@color/black"
+        android:title="Zeskanuj kod QR"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+
+</menu>

@@ -32,7 +32,6 @@ class ProductListAdapter(
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         // TODO - all needed values for a product entry
         val currentProduct = productList[position]
-        //holder.itemView.tvId.text = currentProduct.id.toString()
         holder.itemView.tvName.text = currentProduct.name
         holder.itemView.tvExpirationDate.text = currentProduct.expirationDate
         holder.itemView.tvCategory.text = currentProduct.category
