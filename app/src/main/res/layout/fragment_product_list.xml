@@ -32,5 +32,4 @@
         android:contentDescription="Add new product" />
 
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

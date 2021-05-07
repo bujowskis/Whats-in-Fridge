@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.whatsinfridge.R
 import com.example.whatsinfridge.data.model.ProductEntity
 import com.example.whatsinfridge.data.viewmodel.ProductViewModel
+import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.fragment_product_list.*
 
 class ProductListFragment : Fragment(),
@@ -23,7 +24,6 @@ class ProductListFragment : Fragment(),
 
     private lateinit var mProductViewModel: ProductViewModel
     private val recyclerViewAdapter: ProductListAdapter by lazy { ProductListAdapter(this) }
-
     // For menu item visibility changing
     private var menuItemSearch: MenuItem? = null
     private var menuItemDeleteAll: MenuItem? = null
@@ -120,12 +120,21 @@ class ProductListFragment : Fragment(),
             }
             R.id.item_add_scan_qr -> {
                 // TODO
-                Toast.makeText(requireContext(), "Zeskanuj kod QR", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Zeskanuj kod QR", Toast.LENGTH_SHORT).show()
+
+                // TODO - check if this works
+                val intentIntegrator = IntentIntegrator(requireActivity())
+                intentIntegrator.setPrompt("Scan a barcode or QR code")
+                intentIntegrator.setOrientationLocked(true)
+                intentIntegrator.initiateScan()
+
                 true
             }
             else -> false
         }
     }
+
+    // Handle scanning TODO
 
     // For searching the RecyclerView
     override fun onQueryTextSubmit(query: String?): Boolean {
