@@ -35,16 +35,31 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Anulowano skan", Toast.LENGTH_SHORT).show()
             } else {
                 // TODO - handle data based on the format
-                /*
-                when (intentResult.formatName) {
-                    else -> {
-                        Toast.makeText(requireContext(), "Nie rozpoznano formatu", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                */
                 val formatString = intentResult.formatName.toString()
                 val contentsString = intentResult.contents.toString()
-                Toast.makeText(this, "format: $formatString\ncontents: $contentsString", Toast.LENGTH_LONG).show()
+
+                println("format kodu: $formatString")
+                when (formatString) {
+                    // TODO - improve by not working on strings
+                    /*
+                    "UPC_E" -> {
+                        // Single product encoded in UPC_E
+                        // TODO
+                        Toast.makeText(this, "Rozpoznano UPC-E\ncontents: $contentsString", Toast.LENGTH_LONG).show()
+                    }
+                     */
+                    "EAN_13" -> {
+                        // Single product encoded in EAN_13
+                        // TODO
+                        Toast.makeText(this, "Rozpoznano EAN-13\ncontents: $contentsString", Toast.LENGTH_LONG).show()
+                    }
+                    "QR_CODE" -> {
+                        // (Possibly) list of products encoded in QR Code
+                        // TODO
+                        Toast.makeText(this, "Rozpoznano QR Code\ncontents: $contentsString", Toast.LENGTH_LONG).show()
+                    }
+                    else -> Toast.makeText(this, "Format nie jest obsługiwany", Toast.LENGTH_SHORT).show()
+                }
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data) // TODO - is this necessary?

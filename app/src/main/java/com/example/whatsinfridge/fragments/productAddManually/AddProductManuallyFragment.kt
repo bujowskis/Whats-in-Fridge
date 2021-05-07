@@ -41,7 +41,7 @@ class AddProductManuallyFragment : Fragment() {
         // TODO - proper elements and evaluation
         val name = etName.text.toString()
         val expirationDate = etExpirationDate.text.toString()
-        val category = etCategory.text.toString()
+        val category = etCategory.text.toString() // TODO - as dropdown menu to pick category from
         val amount = etAmount.text.toString()
 
         if (inputCheck(name, expirationDate, category, amount)) {

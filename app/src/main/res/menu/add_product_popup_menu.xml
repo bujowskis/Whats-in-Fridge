@@ -16,7 +16,7 @@
         android:id="@+id/item_add_scan_qr"
         android:icon="@drawable/ic_add_scan_qr"
         android:iconTint="@color/black"
-        android:title="Zeskanuj kod QR"
+        android:title="Zeskanuj kod"
         android:visible="true"
         app:showAsAction="ifRoom" />
 
