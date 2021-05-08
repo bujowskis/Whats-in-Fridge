@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
+import java.time.Instant
 
 @Parcelize
 @Entity(tableName = "products_table")
@@ -32,10 +33,10 @@ data class ProductEntity(
      */
 
     val name: String,
-    val expirationDate: String, // TODO - change to proper type (Date ?)
+    val expirationDate: Instant,
     val category: String,
-    //val amountType: Int, TODO
-    val amount: String // TODO - change to Int
+    val amountType: Int,
+    val amount: Int
 
     /* See comment below
     //@Embedded
@@ -76,11 +77,11 @@ data class ProductMetadata(
  * 8 -> Drinks
  * 9 -> Others
  */
-/**
+/** TODO - methods for more convenient usage
  * Amount types:
  * 0 -> pieces
- * 1 -> kilograms
- * 2 -> liters
+ * 1 -> grams (kilograms)
+ * 2 -> milliliters (liters)
  */
 /**
  * Amounts:

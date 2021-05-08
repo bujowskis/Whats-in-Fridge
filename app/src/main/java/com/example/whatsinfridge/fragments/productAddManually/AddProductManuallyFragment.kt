@@ -1,6 +1,7 @@
 package com.example.whatsinfridge.fragments.productAddManually
 
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,10 @@ import com.example.whatsinfridge.R
 import com.example.whatsinfridge.data.model.ProductEntity
 import com.example.whatsinfridge.data.viewmodel.ProductViewModel
 import kotlinx.android.synthetic.main.fragment_add_product_manually.*
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 class AddProductManuallyFragment : Fragment() {
 
@@ -28,9 +33,7 @@ class AddProductManuallyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         mProductViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
-
         btnAdd.setOnClickListener{
             insertNewProduct()
         }
@@ -38,23 +41,102 @@ class AddProductManuallyFragment : Fragment() {
     }
 
     private fun insertNewProduct() {
-        // TODO - proper elements and evaluation
         val name = etName.text.toString()
+        val category = etCategory.text.toString()
         val expirationDate = etExpirationDate.text.toString()
-        val category = etCategory.text.toString() // TODO - as dropdown menu to pick category from
-        val amount = etAmount.text.toString()
+        val amountTypeString = spinnerAmountType.selectedItem.toString()
+        val amount = etAmount.text
 
-        if (inputCheck(name, expirationDate, category, amount)) {
-            val newProduct = ProductEntity(name, expirationDate, category, amount)
+        val newProduct: ProductEntity? = inputCheck(name, category, expirationDate, amountTypeString, amount)
+        if (newProduct != null) {
             mProductViewModel.addSingleProduct(newProduct)
-            Toast.makeText(requireContext(), "Product added", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(requireContext(), "Not added - all fields must be filled", Toast.LENGTH_SHORT).show()
-        }
+            Toast.makeText(requireContext(), "Dodano produkt", Toast.LENGTH_SHORT).show()
+        } // No need for else statement - Toasts will be shown from within inputCheck
         findNavController().navigate(R.id.action_addProductManuallyFragment_to_productListFragment)
     }
 
-    private fun inputCheck(name: String, expirationDate: String, category: String, amount: String): Boolean {
-        return !(TextUtils.isEmpty(name) && TextUtils.isEmpty(expirationDate) && TextUtils.isEmpty(category) && TextUtils.isEmpty(amount))
+    private fun inputCheck(name: String, category: String, expirationDateString: String, amountTypeString: String, amountEditable: Editable): ProductEntity? {
+        // Name
+        if (TextUtils.isEmpty(name)) {
+            Toast.makeText(requireContext(), "Anuluj - nie podano nazwy", Toast.LENGTH_LONG).show()
+            return null
+        }
+
+        // Category
+        if (TextUtils.isEmpty(category)) {
+            Toast.makeText(requireContext(), "Anuluj - nie podano kategorii", Toast.LENGTH_LONG)
+                .show()
+            return null
+        }
+
+        // Amount and Amount type
+        if (amountEditable.isEmpty()) {
+            Toast.makeText(requireContext(), "Anuluj - nie podano ilości", Toast.LENGTH_LONG).show()
+            return null
+        }
+        // amountTypeString will never be empty, as it's retrieved from the spinner
+        val amountTypeId: Int
+        val amountInt: Int
+        when (amountTypeString) {
+            // TODO - better way of obtaining Int from the editable
+            "szt." -> {
+                // 1 piece equals 100 as an integer
+                // it's possible for the user to enter half a piece as "0.5", thus Float
+                amountTypeId = 0
+                amountInt = (amountEditable.toString().toFloat() * 100).toInt()
+            }
+            "g" -> {
+                // Amount is given explicitly
+                amountTypeId = 1
+                amountInt = amountEditable.toString().toInt()
+            }
+            "kg" -> {
+                // Amount has to be multiplied by 1,000
+                amountTypeId = 1
+                amountInt = (amountEditable.toString().toFloat() * 1000).toInt()
+            }
+            "ml" -> {
+                // Amount is given explicitly
+                amountTypeId = 2
+                amountInt = amountEditable.toString().toInt()
+            }
+            "l" -> {
+                // Amount has to be multiplied by 1,000
+                amountTypeId = 2
+                amountInt = (amountEditable.toString().toFloat() * 1000).toInt()
+            }
+            // This will never happen
+            else -> {
+                Toast.makeText(
+                    requireContext(),
+                    "Anuluj - nie rozpoznano typu wielkości",
+                    Toast.LENGTH_LONG
+                ).show()
+                return null
+            }
+        }
+
+        // Expiration date
+        val expirationDateInstant: Instant
+        if (TextUtils.isEmpty(expirationDateString)) {
+            Toast.makeText(requireContext(), "Anuluj - nie podano daty ważności", Toast.LENGTH_LONG)
+                .show()
+            return null
+        } else {
+            // Validate and parse expirationDate
+            expirationDateInstant = LocalDateTime.parse(
+                expirationDateString,
+                DateTimeFormatter.ofPattern("d.M.uuuu") // TODO - "dd.MM" (?)
+            ).atZone(ZoneId.systemDefault()).toInstant() // TODO - get proper zoneId
+            if (expirationDateInstant == null) {
+                Toast.makeText(
+                    requireContext(),
+                    "Anuluj - zły format daty ważności",
+                    Toast.LENGTH_LONG
+                ).show()
+                return null
+            }
+        }
+        return ProductEntity(name, expirationDateInstant, category, amountTypeId, amountInt)
     }
 }

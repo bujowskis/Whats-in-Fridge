@@ -8,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.whatsinfridge.R
 import com.example.whatsinfridge.data.model.ProductEntity
 import kotlinx.android.synthetic.main.recyclerview_product_layout.view.*
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 class ProductListAdapter(
     private var itemVisibilityInterface: ItemVisibilityInterface
@@ -30,12 +33,41 @@ class ProductListAdapter(
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        // TODO - all needed values for a product entry
         val currentProduct = productList[position]
+
         holder.itemView.tvName.text = currentProduct.name
-        holder.itemView.tvExpirationDate.text = currentProduct.expirationDate
         holder.itemView.tvCategory.text = currentProduct.category
-        holder.itemView.tvAmount.text = currentProduct.amount
+        holder.itemView.tvExpirationDate.text = instantToExDateString(currentProduct.expirationDate)
+        val amountFullString: String = when (currentProduct.amountType) {
+            0 -> {
+                // pieces (divide by 100)
+                "${(currentProduct.amount.toFloat() / 100)}szt."
+
+            }
+            1 -> {
+                if (currentProduct.amount < 1000) {
+                    // grams (explicitly)
+                    "${currentProduct.amount}g"
+                } else {
+                    // kilograms (divide by 1,000)
+                    "${(currentProduct.amount.toFloat() / 1000)}kg"
+                }
+            }
+            2 -> {
+                if (currentProduct.amount < 1000) {
+                    // milliliters (explicitly)
+                    "${currentProduct.amount}ml"
+                } else {
+                    // liters (divide by 1,000)
+                    "${(currentProduct.amount.toFloat() / 1000)}l"
+                }
+            }
+            // This should never happen
+            else -> {
+                "ERROR"
+            }
+        }
+        holder.itemView.tvAmount.text = amountFullString
 
         holder.itemView.setOnLongClickListener {
             if (!multiSelect) {
@@ -104,6 +136,12 @@ class ProductListAdapter(
     fun setData(product: List<ProductEntity>) {
         this.productList = product
         notifyDataSetChanged() // TODO - move on and use the method which skips this
+    }
+
+    private fun instantToExDateString(instant: Instant): String {
+        // Returns String of an expiration date in a format accepted by the app
+        val formatter = DateTimeFormatter.ofPattern("d.M.uuuu").withZone(ZoneId.systemDefault()) // TODO - proper formatter
+        return formatter.format(instant)
     }
 
 }

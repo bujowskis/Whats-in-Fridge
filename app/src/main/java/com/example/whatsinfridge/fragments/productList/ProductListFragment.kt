@@ -7,7 +7,6 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +15,7 @@ import com.example.whatsinfridge.data.model.ProductEntity
 import com.example.whatsinfridge.data.viewmodel.ProductViewModel
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.fragment_product_list.*
+import java.util.*
 
 class ProductListFragment : Fragment(),
     SearchView.OnQueryTextListener,
@@ -48,14 +48,12 @@ class ProductListFragment : Fragment(),
 
         // ProductViewModel
         mProductViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
-        mProductViewModel.readAllData.observe(viewLifecycleOwner, Observer { product ->
+        mProductViewModel.readAllData.observe(viewLifecycleOwner, { product ->
             // Observes changes in DB and invokes appropriate changes
             recyclerViewAdapter.setData(product)
         })
 
         fabAddNewProduct.setOnClickListener {
-            // TODO - show Popup menu where user can choose manual or barcode adding
-            //findNavController().navigate(R.id.action_productListFragment_to_addProductManuallyFragment)
             // Show popup menu with options for adding products
             val popupAddProduct = PopupMenu(requireContext(), fabAddNewProduct)
             val popupAddProductInflater: MenuInflater = popupAddProduct.menuInflater
@@ -66,7 +64,6 @@ class ProductListFragment : Fragment(),
 
         // TODO - consider using ActionMode (?)
         setHasOptionsMenu(true)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -119,15 +116,10 @@ class ProductListFragment : Fragment(),
                 true
             }
             R.id.item_add_scan_qr -> {
-                // TODO
-                //Toast.makeText(requireContext(), "Zeskanuj kod QR", Toast.LENGTH_SHORT).show()
-
-                // TODO - check if this works
                 val intentIntegrator = IntentIntegrator(requireActivity())
                 intentIntegrator.setPrompt("Scan a barcode or QR code")
                 intentIntegrator.setOrientationLocked(true)
                 intentIntegrator.initiateScan()
-
                 true
             }
             else -> false

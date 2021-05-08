@@ -12,59 +12,103 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Nazwa"
         android:inputType="textPersonName"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- TODO - spinner for category (?) -->
+    <EditText
+        android:id="@+id/etUpdateCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etUpdateName" />
+
+    <!-- TODO - DatePicker instead of these (?) -->
+    <!--
+    <TextView
+        android:id="@+id/tvExpirationDateHelper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="16dp"
+        android:text="Ważne do:"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etCategory" />
+
+    <Spinner
+        android:id="@+id/spinnerDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:entries="@array/spinner_days_31"
+        app:layout_constraintEnd_toStartOf="@id/spinnerMonth"
+        app:layout_constraintTop_toTopOf="@id/tvExpirationDateHelper" />
+
+    <Spinner
+        android:id="@+id/spinnerMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/spinner_months_numbers"
+        app:layout_constraintEnd_toStartOf="@id/spinnerYear"
+        app:layout_constraintTop_toTopOf="@id/tvExpirationDateHelper" />
+
+    <Spinner
+        android:id="@+id/spinnerYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/spinner_years"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvExpirationDateHelper" />
+
+        -->
 
     <EditText
         android:id="@+id/etUpdateExpirationDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="16sp"
         android:ems="10"
-        android:hint="Data ważności"
         android:inputType="date"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUpdateName" />
-
-    <EditText
-        android:id="@+id/etUpdateCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Kategoria"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUpdateExpirationDate" />
+        app:layout_constraintTop_toBottomOf="@id/etUpdateCategory" />
 
     <EditText
         android:id="@+id/etUpdateAmount"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="Ilość"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etUpdateCategory" />
+        android:layout_marginTop="16sp"
+        android:ems="5"
+        android:inputType="number"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@id/spinnerUpdateAmountType"
+        app:layout_constraintTop_toBottomOf="@+id/etUpdateExpirationDate" />
+
+    <Spinner
+        android:id="@+id/spinnerUpdateAmountType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/spinner_amount_type"
+        app:layout_constraintBottom_toBottomOf="@id/etUpdateAmount"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btnUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Zaktualizuj"
-        android:textSize="24sp"
+        android:layout_marginTop="16sp"
+        android:text="Aktualizuj"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etUpdateAmount" />
