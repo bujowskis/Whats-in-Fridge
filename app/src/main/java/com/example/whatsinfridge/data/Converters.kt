@@ -1,16 +1,16 @@
 package com.example.whatsinfridge.data
 
 import androidx.room.TypeConverter
-import java.time.Instant
+import java.time.LocalDate
 
 // Converters to store more complex data in Room database
 class Converters {
     @TypeConverter
-    fun timestampToInstant(timestamp: Long?): Instant? {
-        return timestamp?.let { Instant.ofEpochSecond(it) }
+    fun stringToLocalDate(string: String): LocalDate? {
+        return LocalDate.parse(string)
     }
     @TypeConverter
-    fun instantToTimestamp(instant: Instant?): Long? {
-        return instant?.epochSecond
+    fun localDateToString(localDate: LocalDate?): String? {
+        return localDate?.toString()
     }
 }

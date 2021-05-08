@@ -14,10 +14,7 @@ import com.example.whatsinfridge.R
 import com.example.whatsinfridge.data.model.ProductEntity
 import com.example.whatsinfridge.data.viewmodel.ProductViewModel
 import kotlinx.android.synthetic.main.fragment_add_product_manually.*
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
+import java.time.LocalDate
 
 class AddProductManuallyFragment : Fragment() {
 
@@ -117,26 +114,19 @@ class AddProductManuallyFragment : Fragment() {
         }
 
         // Expiration date
-        val expirationDateInstant: Instant
+        val expirationDateLocalDate: LocalDate?
         if (TextUtils.isEmpty(expirationDateString)) {
-            Toast.makeText(requireContext(), "Anuluj - nie podano daty ważności", Toast.LENGTH_LONG)
-                .show()
+            Toast.makeText(requireContext(), "Anuluj - nie podano daty ważności", Toast.LENGTH_LONG).show()
             return null
         } else {
             // Validate and parse expirationDate
-            expirationDateInstant = LocalDateTime.parse(
-                expirationDateString,
-                DateTimeFormatter.ofPattern("d.M.uuuu") // TODO - "dd.MM" (?)
-            ).atZone(ZoneId.systemDefault()).toInstant() // TODO - get proper zoneId
-            if (expirationDateInstant == null) {
-                Toast.makeText(
-                    requireContext(),
-                    "Anuluj - zły format daty ważności",
-                    Toast.LENGTH_LONG
+            expirationDateLocalDate = LocalDate.parse(expirationDateString) // TODO - other types of formatting
+            if (expirationDateLocalDate == null) {
+                Toast.makeText(requireContext(), "Anuluj - zły format daty ważności", Toast.LENGTH_LONG
                 ).show()
                 return null
             }
         }
-        return ProductEntity(name, expirationDateInstant, category, amountTypeId, amountInt)
+        return ProductEntity(name, expirationDateLocalDate, category, amountTypeId, amountInt)
     }
 }

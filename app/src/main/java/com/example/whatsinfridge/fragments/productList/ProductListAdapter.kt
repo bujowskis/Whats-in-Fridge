@@ -8,9 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.whatsinfridge.R
 import com.example.whatsinfridge.data.model.ProductEntity
 import kotlinx.android.synthetic.main.recyclerview_product_layout.view.*
-import java.time.Instant
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
 
 class ProductListAdapter(
     private var itemVisibilityInterface: ItemVisibilityInterface
@@ -37,7 +34,7 @@ class ProductListAdapter(
 
         holder.itemView.tvName.text = currentProduct.name
         holder.itemView.tvCategory.text = currentProduct.category
-        holder.itemView.tvExpirationDate.text = instantToExDateString(currentProduct.expirationDate)
+        holder.itemView.tvExpirationDate.text = currentProduct.expirationDate.toString()
         val amountFullString: String = when (currentProduct.amountType) {
             0 -> {
                 // pieces (divide by 100)
@@ -136,12 +133,6 @@ class ProductListAdapter(
     fun setData(product: List<ProductEntity>) {
         this.productList = product
         notifyDataSetChanged() // TODO - move on and use the method which skips this
-    }
-
-    private fun instantToExDateString(instant: Instant): String {
-        // Returns String of an expiration date in a format accepted by the app
-        val formatter = DateTimeFormatter.ofPattern("d.M.uuuu").withZone(ZoneId.systemDefault()) // TODO - proper formatter
-        return formatter.format(instant)
     }
 
 }

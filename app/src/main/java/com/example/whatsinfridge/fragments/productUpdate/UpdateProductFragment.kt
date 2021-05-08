@@ -14,10 +14,7 @@ import com.example.whatsinfridge.R
 import com.example.whatsinfridge.data.model.ProductEntity
 import com.example.whatsinfridge.data.viewmodel.ProductViewModel
 import kotlinx.android.synthetic.main.fragment_update_product.*
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
+import java.time.LocalDate
 
 class UpdateProductFragment : Fragment() {
 
@@ -39,7 +36,7 @@ class UpdateProductFragment : Fragment() {
 
         etUpdateName.setText(args.currentProduct.name)
         etUpdateCategory.setText(args.currentProduct.category)
-        etUpdateExpirationDate.setText(instantToExDateString(args.currentProduct.expirationDate))
+        etUpdateExpirationDate.setText(args.currentProduct.expirationDate.toString())
         when (args.currentProduct.amountType) {
             0 -> {
                 // pieces (divide by 100)
@@ -166,27 +163,20 @@ class UpdateProductFragment : Fragment() {
         }
 
         // Expiration date
-        val expirationDateInstant: Instant
+        val expirationDateLocalDate: LocalDate?
         if (TextUtils.isEmpty(expirationDateString)) {
-            Toast.makeText(requireContext(), "Anuluj - nie podano daty ważności", Toast.LENGTH_LONG)
-                .show()
+            Toast.makeText(requireContext(), "Anuluj - nie podano daty ważności", Toast.LENGTH_LONG).show()
             return null
         } else {
             // Validate and parse expirationDate
-            expirationDateInstant = LocalDateTime.parse(
-                expirationDateString,
-                DateTimeFormatter.ofPattern("d.M.uuuu") // TODO - "dd.MM" (?)
-            ).atZone(ZoneId.systemDefault()).toInstant() // TODO - get proper zoneId
-            if (expirationDateInstant == null) {
-                Toast.makeText(
-                    requireContext(),
-                    "Anuluj - zły format daty ważności",
-                    Toast.LENGTH_LONG
+            expirationDateLocalDate = LocalDate.parse(expirationDateString) // TODO - other types of formatting
+            if (expirationDateLocalDate == null) {
+                Toast.makeText(requireContext(), "Anuluj - zły format daty ważności", Toast.LENGTH_LONG
                 ).show()
                 return null
             }
         }
-        return ProductEntity(name, expirationDateInstant, category, amountTypeId, amountInt)
+        return ProductEntity(name, expirationDateLocalDate, category, amountTypeId, amountInt)
     }
 
     private fun deleteProduct() {
@@ -204,9 +194,4 @@ class UpdateProductFragment : Fragment() {
         builder.create().show()
     }
 
-    private fun instantToExDateString(instant: Instant): String {
-        // Returns String of an expiration date in a format accepted by the app
-        val formatter = DateTimeFormatter.ofPattern("d.M.uuuu").withZone(ZoneId.systemDefault()) // TODO - proper formatter
-        return formatter.format(instant)
-    }
 }

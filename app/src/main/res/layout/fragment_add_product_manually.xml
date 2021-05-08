@@ -33,53 +33,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etName" />
 
-    <!-- TODO - DatePicker instead of these (?) -->
-    <!--
-    <TextView
-        android:id="@+id/tvExpirationDateHelper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="16dp"
-        android:text="Ważne do:"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etCategory" />
-
-    <Spinner
-        android:id="@+id/spinnerDay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:entries="@array/spinner_days_31"
-        app:layout_constraintEnd_toStartOf="@id/spinnerMonth"
-        app:layout_constraintTop_toTopOf="@id/tvExpirationDateHelper" />
-
-    <Spinner
-        android:id="@+id/spinnerMonth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:entries="@array/spinner_months_numbers"
-        app:layout_constraintEnd_toStartOf="@id/spinnerYear"
-        app:layout_constraintTop_toTopOf="@id/tvExpirationDateHelper" />
-
-    <Spinner
-        android:id="@+id/spinnerYear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:entries="@array/spinner_years"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvExpirationDateHelper" />
-
-        -->
-
     <EditText
         android:id="@+id/etExpirationDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16sp"
         android:ems="10"
-        android:hint="Data ważności: DD.MM.YYYY"
+        android:hint="Data ważności: yyyy-mm-dd"
         android:inputType="date"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +53,7 @@
         android:layout_marginTop="16sp"
         android:ems="5"
         android:hint="Ilość"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@id/spinnerAmountType"
         app:layout_constraintTop_toBottomOf="@+id/etExpirationDate" />

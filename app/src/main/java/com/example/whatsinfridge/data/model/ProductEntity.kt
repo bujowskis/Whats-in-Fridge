@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
-import java.time.Instant
+import java.time.LocalDate
 
 @Parcelize
 @Entity(tableName = "products_table")
@@ -33,7 +33,7 @@ data class ProductEntity(
      */
 
     val name: String,
-    val expirationDate: Instant,
+    val expirationDate: LocalDate,
     val category: String,
     val amountType: Int,
     val amount: Int
