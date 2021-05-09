@@ -13,6 +13,7 @@ class ProductListAdapter(
     private var itemVisibilityInterface: ItemVisibilityInterface
 ): RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() { // TODO - move on and use a ListAdapter
 
+    // TODO - days till expiration date
     private var productList = emptyList<ProductEntity>()
     // For multi selection
     private var multiSelect = false

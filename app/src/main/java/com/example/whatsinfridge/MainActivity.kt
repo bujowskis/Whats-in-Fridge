@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                 when (formatString) {
                     "UPC_A" -> {
                         // for some reason, the Zxing confuses EAN_13 with this one
-                        val newProduct: ProductEntity? = DecoderEAN_13.decodeMistakenUPC_A(contentsString)
+                        val newProduct: ProductEntity? = ProductDecoder.decodeMistakenUPC_A(contentsString)
                         if (newProduct != null) {
                             mProductViewModel.addSingleProduct(newProduct)
                         } else {
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     "EAN_13" -> {
                         // Single product encoded in EAN_13
-                        val newProduct: ProductEntity? = DecoderEAN_13.decodeEAN_13(contentsString)
+                        val newProduct: ProductEntity? = ProductDecoder.decodeEAN_13(contentsString)
                         if (newProduct != null) {
                             mProductViewModel.addSingleProduct(newProduct)
                         } else {
@@ -68,7 +68,12 @@ class MainActivity : AppCompatActivity() {
                     }
                     "QR_CODE" -> {
                         // (Possibly) list of products encoded in QR Code
-                        // TODO
+                        val productsArrayList = ProductDecoder.decodeQR(contentsString)
+                        if (productsArrayList.isEmpty()) {
+                            Toast.makeText(this, "Anuluj - nie rozpoznano produktów", Toast.LENGTH_LONG).show()
+                        } else {
+                            for (product in productsArrayList) mProductViewModel.addSingleProduct(product)
+                        }
                     }
                     else -> Toast.makeText(this, "Ten format nie jest obsługiwany", Toast.LENGTH_SHORT).show()
                 }

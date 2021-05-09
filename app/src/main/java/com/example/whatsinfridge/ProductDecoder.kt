@@ -5,7 +5,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeParseException
 
 @ExperimentalStdlibApi
-object DecoderEAN_13 {
+object ProductDecoder {
     // TODO - optimize this function
     fun decodeEAN_13(codeString: String): ProductEntity? {
         println("Testing EAN decoding")
@@ -14,7 +14,7 @@ object DecoderEAN_13 {
             println("improper length")
             return null
         } // This should never happen
-        if (codeString[0].toInt() != 0) {
+        if (codeString[0].digitToInt() != 0) {
             println("first digit is not equal to 0")
             return null
         }
@@ -74,6 +74,27 @@ object DecoderEAN_13 {
         if (amount == -1) return null
 
         return ProductEntity(name, expirationDate, category, amountType, amount)
+    }
+
+    // TODO - throw exceptions for more insightful failure recognition
+    /** Returns empty ArrayList<ProductEntity?> on failure */
+    fun decodeQR(contents: String): ArrayList<ProductEntity> {
+        var productsArrayList = arrayListOf<ProductEntity>()
+
+        val contentsList: List<String> = contents.split('\n')
+        // WiF_EAN_13
+        if (contentsList[0] != "WiF_EAN_13" || contentsList.size < 2 ) return productsArrayList
+        for (i in 1 until contentsList.size) {
+            val currentProduct: ProductEntity? = decodeEAN_13(contentsList[i])
+            if (currentProduct == null) {
+                // If at least one product was not decoded, cancel adding
+                productsArrayList.clear()
+                return productsArrayList
+            } else {
+                productsArrayList.add(currentProduct)
+            }
+        }
+        return productsArrayList
     }
 
     // Converting and validating Ids

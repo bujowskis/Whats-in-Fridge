@@ -117,7 +117,7 @@ class ProductListFragment : Fragment(),
             }
             R.id.item_add_scan_qr -> {
                 val intentIntegrator = IntentIntegrator(requireActivity())
-                intentIntegrator.setPrompt("Scan a barcode or QR code")
+                intentIntegrator.setPrompt("Zeskanuj kod kreskowy lub QR")
                 intentIntegrator.setOrientationLocked(true)
                 intentIntegrator.initiateScan()
                 true
