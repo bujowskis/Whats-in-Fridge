@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16sp"
         android:ems="10"
-        android:hint="Data ważności: yyyy-mm-dd"
+        android:hint="Ważne do: yyyy-mm-dd"
         android:inputType="date"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

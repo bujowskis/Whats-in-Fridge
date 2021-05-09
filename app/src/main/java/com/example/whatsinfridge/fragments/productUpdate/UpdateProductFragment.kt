@@ -15,6 +15,8 @@ import com.example.whatsinfridge.data.model.ProductEntity
 import com.example.whatsinfridge.data.viewmodel.ProductViewModel
 import kotlinx.android.synthetic.main.fragment_update_product.*
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 
 class UpdateProductFragment : Fragment() {
 
@@ -169,9 +171,9 @@ class UpdateProductFragment : Fragment() {
             return null
         } else {
             // Validate and parse expirationDate
-            expirationDateLocalDate = LocalDate.parse(expirationDateString) // TODO - other types of formatting
+            expirationDateLocalDate = tryParseStringToLocalDate(expirationDateString)
             if (expirationDateLocalDate == null) {
-                Toast.makeText(requireContext(), "Anuluj - zły format daty ważności", Toast.LENGTH_LONG
+                Toast.makeText(requireContext(), "Anuluj - niepoprawny format daty ważności", Toast.LENGTH_LONG
                 ).show()
                 return null
             }
@@ -194,4 +196,17 @@ class UpdateProductFragment : Fragment() {
         builder.create().show()
     }
 
+    private fun tryParseStringToLocalDate(string: String): LocalDate? {
+        return try { LocalDate.parse(string, DateTimeFormatter.ofPattern("yyyy-M-d")) } catch (e: DateTimeParseException) {
+            try { LocalDate.parse(string, DateTimeFormatter.ofPattern("d-M-yyyy")) } catch (e: DateTimeParseException) {
+                try { LocalDate.parse(string, DateTimeFormatter.ofPattern("yyyy.M.d")) } catch (e: DateTimeParseException) {
+                    try { LocalDate.parse(string, DateTimeFormatter.ofPattern("d.M.yyyy")) } catch (e: DateTimeParseException) {
+                        try { LocalDate.parse(string, DateTimeFormatter.ofPattern("yyyy/M/d")) } catch (e: DateTimeParseException) {
+                            try { LocalDate.parse(string, DateTimeFormatter.ofPattern("d/M/yyyy")) } catch (e: DateTimeParseException) { null }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
