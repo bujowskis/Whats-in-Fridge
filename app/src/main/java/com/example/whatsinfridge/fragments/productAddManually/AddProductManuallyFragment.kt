@@ -50,28 +50,27 @@ class AddProductManuallyFragment : Fragment() {
         if (newProduct != null) {
             mProductViewModel.addSingleProduct(newProduct)
             Toast.makeText(requireContext(), "Dodano produkt", Toast.LENGTH_SHORT).show()
-        } // No need for else statement - Toasts will be shown from within inputCheck
-        // TODO - Stay in this fragment to correct
-        findNavController().navigate(R.id.action_addProductManuallyFragment_to_productListFragment)
+            findNavController().navigate(R.id.action_addProductManuallyFragment_to_productListFragment)
+        }
     }
 
     private fun inputCheck(name: String, category: String, expirationDateString: String, amountTypeString: String, amountEditable: Editable): ProductEntity? {
         // Name
         if (TextUtils.isEmpty(name)) {
-            Toast.makeText(requireContext(), "Anuluj - nie podano nazwy", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "Nie podano nazwy", Toast.LENGTH_LONG).show()
             return null
         }
 
         // Category
         if (TextUtils.isEmpty(category)) {
-            Toast.makeText(requireContext(), "Anuluj - nie podano kategorii", Toast.LENGTH_LONG)
+            Toast.makeText(requireContext(), "Nie podano kategorii", Toast.LENGTH_LONG)
                 .show()
             return null
         }
 
         // Amount and Amount type
         if (amountEditable.isEmpty()) {
-            Toast.makeText(requireContext(), "Anuluj - nie podano ilości", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "Nie podano ilości", Toast.LENGTH_LONG).show()
             return null
         }
         // amountTypeString will never be empty, as it's retrieved from the spinner
@@ -109,7 +108,7 @@ class AddProductManuallyFragment : Fragment() {
             else -> {
                 Toast.makeText(
                     requireContext(),
-                    "Anuluj - nie rozpoznano typu wielkości",
+                    "Nie rozpoznano typu wielkości",
                     Toast.LENGTH_LONG
                 ).show()
                 return null
@@ -119,14 +118,13 @@ class AddProductManuallyFragment : Fragment() {
         // Expiration date
         val expirationDateLocalDate: LocalDate?
         if (TextUtils.isEmpty(expirationDateString)) {
-            Toast.makeText(requireContext(), "Anuluj - nie podano daty ważności", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "Nie podano daty ważności", Toast.LENGTH_LONG).show()
             return null
         } else {
             // Validate and parse expirationDate
             expirationDateLocalDate = tryParseStringToLocalDate(expirationDateString)
-
             if (expirationDateLocalDate == null) {
-                Toast.makeText(requireContext(), "Anuluj - niepoprawny format daty ważności", Toast.LENGTH_LONG
+                Toast.makeText(requireContext(), "Niepoprawny format daty ważności", Toast.LENGTH_LONG
                 ).show()
                 return null
             }

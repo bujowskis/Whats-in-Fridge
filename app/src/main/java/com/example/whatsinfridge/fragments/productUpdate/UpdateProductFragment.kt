@@ -42,28 +42,28 @@ class UpdateProductFragment : Fragment() {
         when (args.currentProduct.amountType) {
             0 -> {
                 // pieces (divide by 100)
-                spinnerUpdateAmountType.setSelection(0) // TODO - check if that's the proper index
+                spinnerUpdateAmountType.setSelection(0)
                 etUpdateAmount.setText((args.currentProduct.amount.toFloat() / 100).toString())
             }
             1 -> {
                 if (args.currentProduct.amount < 1000) {
                     // grams (explicitly)
-                    spinnerUpdateAmountType.setSelection(1) // TODO - check if that's the proper index
-                    etUpdateAmount.setText(args.currentProduct.amount)
+                    spinnerUpdateAmountType.setSelection(1)
+                    etUpdateAmount.setText(args.currentProduct.amount.toString())
                 } else {
                     // kilograms (divide by 1,000)
-                    spinnerUpdateAmountType.setSelection(2) // TODO - check if that's the proper index
+                    spinnerUpdateAmountType.setSelection(2)
                     etUpdateAmount.setText((args.currentProduct.amount.toFloat() / 1000).toString())
                 }
             }
             2 -> {
                 if (args.currentProduct.amount < 1000) {
                     // milliliters (explicitly)
-                    spinnerUpdateAmountType.setSelection(3) // TODO - check if that's the proper index
-                    etUpdateAmount.setText(args.currentProduct.amount)
+                    spinnerUpdateAmountType.setSelection(3)
+                    etUpdateAmount.setText(args.currentProduct.amount.toString())
                 } else {
                     // liters (divide by 1,000)
-                    spinnerUpdateAmountType.setSelection(4) // TODO - check if that's the proper index
+                    spinnerUpdateAmountType.setSelection(4)
                     etUpdateAmount.setText((args.currentProduct.amount.toFloat() / 1000).toString())
                 }
             }
@@ -76,7 +76,7 @@ class UpdateProductFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        // super.onCreateOptionsMenu(menu, inflater) TODO - is needed?
+        super.onCreateOptionsMenu(menu, inflater) // TODO - is needed?
         inflater.inflate(R.menu.delete_menu, menu)
     }
 
@@ -99,27 +99,27 @@ class UpdateProductFragment : Fragment() {
         if (updatedProduct != null) {
             mProductViewModel.updateProduct(updatedProduct)
             Toast.makeText(requireContext(), "Zapisano zmiany", Toast.LENGTH_SHORT).show()
-        } // Proper Toasts are shown from within inputCheck
-        findNavController().navigate(R.id.action_updateProductFragment_to_productListFragment)
+            findNavController().navigate(R.id.action_updateProductFragment_to_productListFragment)
+        }
     }
 
     private fun inputCheck(name: String, category: String, expirationDateString: String, amountTypeString: String, amountEditable: Editable): ProductEntity? {
         // Name
         if (TextUtils.isEmpty(name)) {
-            Toast.makeText(requireContext(), "Anuluj - nie podano nazwy", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "Nie podano nazwy", Toast.LENGTH_LONG).show()
             return null
         }
 
         // Category
         if (TextUtils.isEmpty(category)) {
-            Toast.makeText(requireContext(), "Anuluj - nie podano kategorii", Toast.LENGTH_LONG)
+            Toast.makeText(requireContext(), "Nie podano kategorii", Toast.LENGTH_LONG)
                 .show()
             return null
         }
 
         // Amount and Amount type
         if (amountEditable.isEmpty()) {
-            Toast.makeText(requireContext(), "Anuluj - nie podano ilości", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "Nie podano ilości", Toast.LENGTH_LONG).show()
             return null
         }
         // amountTypeString will never be empty, as it's retrieved from the spinner
@@ -157,7 +157,7 @@ class UpdateProductFragment : Fragment() {
             else -> {
                 Toast.makeText(
                     requireContext(),
-                    "Anuluj - nie rozpoznano typu wielkości",
+                    "Nie rozpoznano typu wielkości",
                     Toast.LENGTH_LONG
                 ).show()
                 return null
@@ -167,13 +167,13 @@ class UpdateProductFragment : Fragment() {
         // Expiration date
         val expirationDateLocalDate: LocalDate?
         if (TextUtils.isEmpty(expirationDateString)) {
-            Toast.makeText(requireContext(), "Anuluj - nie podano daty ważności", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "Nie podano daty ważności", Toast.LENGTH_LONG).show()
             return null
         } else {
             // Validate and parse expirationDate
             expirationDateLocalDate = tryParseStringToLocalDate(expirationDateString)
             if (expirationDateLocalDate == null) {
-                Toast.makeText(requireContext(), "Anuluj - niepoprawny format daty ważności", Toast.LENGTH_LONG
+                Toast.makeText(requireContext(), "Niepoprawny format daty ważności", Toast.LENGTH_LONG
                 ).show()
                 return null
             }
