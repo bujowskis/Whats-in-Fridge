@@ -1,5 +1,6 @@
 package com.example.whatsinfridge.fragments.productList
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,19 +9,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.whatsinfridge.R
 import com.example.whatsinfridge.data.model.ProductEntity
 import kotlinx.android.synthetic.main.recyclerview_product_layout.view.*
+import java.time.LocalDate
 
 class ProductListAdapter(
     private var itemVisibilityInterface: ItemVisibilityInterface
 ): RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() { // TODO - move on and use a ListAdapter
 
-    // TODO - days till expiration date
     private var productList = emptyList<ProductEntity>()
     // For multi selection
     private var multiSelect = false
     private var selectedProducts = arrayListOf<ProductEntity>()
     private var selectedViews = arrayListOf<ProductViewHolder>()
+    // Time till expiration
+    private val dateToday = LocalDate.now()
 
-    class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {}
+    class ProductViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         return ProductViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.recyclerview_product_layout, parent, false))
@@ -33,6 +36,7 @@ class ProductListAdapter(
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val currentProduct = productList[position]
 
+        holder.itemView.setBackgroundColor(Color.LTGRAY)
         holder.itemView.tvName.text = currentProduct.name
         holder.itemView.tvCategory.text = currentProduct.category
         holder.itemView.tvExpirationDate.text = currentProduct.expirationDate.toString()
@@ -66,6 +70,26 @@ class ProductListAdapter(
             }
         }
         holder.itemView.tvAmount.text = amountFullString
+        // Conditional component, depending on expirationDate and dateToday
+        val daysLeft = currentProduct.expirationDate.toEpochDay() - dateToday.toEpochDay()
+        // TODO - do that with 'when' (?)
+        // TODO - change UI
+        if (daysLeft < 0) {
+            // Product has expired
+            holder.itemView.tvExpirationDays.text = "(po terminie)"
+            holder.itemView.tvExpirationDays.setTextColor(Color.RED)
+        } else if (daysLeft < 4) {
+            // Very close to expiration
+            holder.itemView.tvExpirationDays.text = "(dni: $daysLeft)"
+            holder.itemView.tvExpirationDays.setTextColor(Color.YELLOW)
+        } else if (daysLeft < 8) {
+            // Close to expiration
+            holder.itemView.tvExpirationDays.text = "(dni: $daysLeft)"
+            holder.itemView.tvExpirationDays.setTextColor(Color.GREEN)
+        } else {
+            // No need to worry
+            holder.itemView.tvExpirationDays.text = ""
+        }
 
         holder.itemView.setOnLongClickListener {
             if (!multiSelect) {

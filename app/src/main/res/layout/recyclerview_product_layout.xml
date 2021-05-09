@@ -5,13 +5,13 @@
     android:id="@+id/rowProductLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="4sp"
     android:padding="8sp">
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8sp"
         android:text="name"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,15 +22,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="category"
-        android:textSize="24sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/tvAmount" />
 
     <TextView
         android:id="@+id/tvAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="amount"
+        android:ems="4"
         android:textSize="16sp"
         android:layout_marginTop="8sp"
         app:layout_constraintTop_toBottomOf="@id/tvName"
@@ -43,9 +44,19 @@
         android:layout_height="wrap_content"
         android:text="expiration date"
         android:textSize="16sp"
-        android:layout_marginStart="16sp"
+        android:layout_marginStart="8sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvAmount"
+        app:layout_constraintTop_toTopOf="@id/tvAmount" />
+
+    <TextView
+        android:id="@+id/tvExpirationDays"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginStart="8sp"
+        android:text="dni: M"
+        app:layout_constraintStart_toEndOf="@id/tvExpirationDate"
         app:layout_constraintTop_toTopOf="@id/tvAmount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

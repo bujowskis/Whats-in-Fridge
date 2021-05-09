@@ -97,6 +97,7 @@ class UpdateProductFragment : Fragment() {
 
         val updatedProduct: ProductEntity? = inputCheck(name, category, expirationDate, amountTypeString, amount)
         if (updatedProduct != null) {
+            updatedProduct.id = args.currentProduct.id
             mProductViewModel.updateProduct(updatedProduct)
             Toast.makeText(requireContext(), "Zapisano zmiany", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_updateProductFragment_to_productListFragment)
