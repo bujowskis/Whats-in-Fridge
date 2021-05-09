@@ -13,9 +13,9 @@ data class ProductEntity(
      * For presentation purpose, two data encodings are supported:
      * // TODO - characters can be used instead of digits to save on encoding space
      *  EAN-13, which contains a single product encoded as follows:
-     *      - 1 control digit, which must be equal to 'W'
+     *      - 1 control digit, which must be equal to '0'
      *      - 2 digits encoding the name
-     *      - 6 digits encoding the expiration date (2 for day, 2 for month, 2 for year)
+     *      - 6 digits encoding the expiration date (2 for year, 2 for month, 2 for day)
      *      - 1 digit encoding the category
      *      - 1 digit encoding the amount type (could be evaluated based on the name and type)
      *      - 1 digit encoding the amount
@@ -56,7 +56,8 @@ data class ProductMetadata(
 // Explanation of the encodings:
 /**
  * Names: TODO
- * 0 ->
+ * 00 -> Ogórek
+ * 01 ->
  */
 /**
  * Expiration dates:
@@ -77,8 +78,8 @@ data class ProductMetadata(
  * 8 -> Drinks
  * 9 -> Others
  */
-/** TODO - methods for more convenient usage
- * Amount types:
+/**
+ * Amount types: TODO - methods for more convenient usage
  * 0 -> pieces
  * 1 -> grams (kilograms)
  * 2 -> milliliters (liters)
