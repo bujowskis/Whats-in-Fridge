@@ -18,6 +18,8 @@ class MainActivity : AppCompatActivity() {
     // TODO - Dependency injection with dagger hilt (?)
 
     private lateinit var mProductViewModel: ProductViewModel
+    private lateinit var productsList: List<ProductEntity>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +28,10 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(findNavController(R.id.hostFragment))
 
         mProductViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
+        mProductViewModel.readAllData.observe(this, { products: List<ProductEntity> ->
+            // Observes changes in DB and invokes appropriate changes
+            productsList = products
+        })
     }
 
     // Makes it possible to go back using the return arrow of NavController
@@ -52,7 +58,15 @@ class MainActivity : AppCompatActivity() {
                         // for some reason, the Zxing confuses EAN_13 with this one
                         val newProduct: ProductEntity? = ProductDecoder.decodeMistakenUPC_A(contentsString)
                         if (newProduct != null) {
-                            mProductViewModel.addSingleProduct(newProduct)
+                            val matchingProduct = searchMatchingProduct(newProduct, productsList)
+                            if (matchingProduct == null) {
+                                mProductViewModel.addSingleProduct(newProduct)
+                                Toast.makeText(this, "Dodano produkt", Toast.LENGTH_SHORT).show()
+                            } else {
+                                matchingProduct.amount += newProduct.amount
+                                mProductViewModel.updateProduct(matchingProduct)
+                                Toast.makeText(this, "Dodano do istniejącego produktu", Toast.LENGTH_SHORT).show()
+                            }
                         } else {
                             Toast.makeText(this, "Anuluj - nie rozpoznano produktu", Toast.LENGTH_LONG).show()
                         }
@@ -72,7 +86,16 @@ class MainActivity : AppCompatActivity() {
                         if (productsArrayList.isEmpty()) {
                             Toast.makeText(this, "Anuluj - nie rozpoznano produktów", Toast.LENGTH_LONG).show()
                         } else {
-                            for (product in productsArrayList) mProductViewModel.addSingleProduct(product)
+                            for (product in productsArrayList) {
+                                val matchingProduct = searchMatchingProduct(product, productsList)
+                                if (matchingProduct == null) {
+                                    mProductViewModel.addSingleProduct(product)
+                                } else {
+                                    matchingProduct.amount += product.amount
+                                    mProductViewModel.updateProduct(matchingProduct)
+                                }
+                            }
+                            Toast.makeText(this, "Dodano produkty", Toast.LENGTH_SHORT).show()
                         }
                     }
                     else -> Toast.makeText(this, "Ten format nie jest obsługiwany", Toast.LENGTH_SHORT).show()
@@ -81,5 +104,18 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onActivityResult(requestCode, resultCode, data) // TODO - is this necessary?
         }
+    }
+
+    /** Returns matching product on success, otherwise null */
+    private fun searchMatchingProduct(thisProduct: ProductEntity, products: List<ProductEntity>): ProductEntity? {
+        // TODO - optimize this process
+        for (product in products) {
+            if (thisProduct.amountType == product.amountType
+                && thisProduct.name.lowercase() == product.name.lowercase()
+                && thisProduct.category.lowercase() == product.category.lowercase()
+                && thisProduct.expirationDate == product.expirationDate
+            ) { return product }
+        }
+        return null
     }
 }
