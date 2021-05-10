@@ -11,6 +11,7 @@ import com.example.whatsinfridge.data.model.ProductEntity
 import kotlinx.android.synthetic.main.recyclerview_product_layout.view.*
 import java.time.LocalDate
 
+// comment to check adding to remote repo
 class ProductListAdapter(
     private var itemVisibilityInterface: ItemVisibilityInterface
 ): RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() { // TODO - move on and use a ListAdapter
