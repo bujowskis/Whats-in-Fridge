@@ -72,23 +72,27 @@ class ProductListAdapter(
         holder.itemView.tvAmount.text = amountFullString
         // Conditional component, depending on expirationDate and dateToday
         val daysLeft = currentProduct.expirationDate.toEpochDay() - dateToday.toEpochDay()
-        // TODO - do that with 'when' (?)
-        // TODO - change UI
-        if (daysLeft < 0) {
-            // Product has expired
-            holder.itemView.tvExpirationDays.text = "(po terminie)"
-            holder.itemView.tvExpirationDays.setTextColor(Color.RED)
-        } else if (daysLeft < 4) {
-            // Very close to expiration
-            holder.itemView.tvExpirationDays.text = "(dni: $daysLeft)"
-            holder.itemView.tvExpirationDays.setTextColor(Color.YELLOW)
-        } else if (daysLeft < 8) {
-            // Close to expiration
-            holder.itemView.tvExpirationDays.text = "(dni: $daysLeft)"
-            holder.itemView.tvExpirationDays.setTextColor(Color.GREEN)
-        } else {
-            // No need to worry
-            holder.itemView.tvExpirationDays.text = ""
+        when {
+            daysLeft < 0 -> {
+                // Product has expired
+                holder.itemView.tvExpirationDays.text = "(po terminie)"
+                holder.itemView.setBackgroundColor(Color.parseColor("#de5959"))
+            }
+            daysLeft < 4 -> {
+                // Very close to expiration
+                holder.itemView.tvExpirationDays.text = "(dni: $daysLeft)"
+                holder.itemView.setBackgroundColor(Color.parseColor("#ffea8c"))
+            }
+            daysLeft < 8 -> {
+                // Close to expiration
+                holder.itemView.tvExpirationDays.text = "(dni: $daysLeft)"
+                holder.itemView.setBackgroundColor(Color.parseColor("#c5ffb0"))
+            }
+            else -> {
+                // No need to worry
+                holder.itemView.tvExpirationDays.text = ""
+                holder.itemView.setBackgroundColor(Color.parseColor("#eefcd9"))
+            }
         }
 
         holder.itemView.setOnLongClickListener {
@@ -131,7 +135,7 @@ class ProductListAdapter(
         } else {
             selectedProducts.add(currentProduct)
             selectedViews.add(holder)
-            holder.itemView.alpha = 0.3f
+            holder.itemView.alpha = 0.5f
         }
     }
 
