@@ -36,7 +36,7 @@ data class ProductEntity(
     val expirationDate: LocalDate,
     val category: String,
     val amountType: Int,
-    val amount: Int
+    var amount: Int
 
     /* See comment below
     //@Embedded

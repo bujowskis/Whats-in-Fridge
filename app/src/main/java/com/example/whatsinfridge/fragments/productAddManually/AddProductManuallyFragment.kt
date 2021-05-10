@@ -18,9 +18,11 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
+@ExperimentalStdlibApi
 class AddProductManuallyFragment : Fragment() {
 
     private lateinit var mProductViewModel: ProductViewModel
+    private lateinit var productsList: List<ProductEntity>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,10 +35,15 @@ class AddProductManuallyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mProductViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
+
+        mProductViewModel.readAllData.observe(viewLifecycleOwner, { products: List<ProductEntity> ->
+            // Observes changes in DB and invokes appropriate changes
+            productsList = products
+        })
+
         btnAdd.setOnClickListener{
             insertNewProduct()
         }
-
     }
 
     private fun insertNewProduct() {
@@ -48,8 +55,15 @@ class AddProductManuallyFragment : Fragment() {
 
         val newProduct: ProductEntity? = inputCheck(name, category, expirationDate, amountTypeString, amount)
         if (newProduct != null) {
-            mProductViewModel.addSingleProduct(newProduct)
-            Toast.makeText(requireContext(), "Dodano produkt", Toast.LENGTH_SHORT).show()
+            val matchingProduct = searchMatchingProduct(newProduct, productsList)
+            if (matchingProduct == null) {
+                mProductViewModel.addSingleProduct(newProduct)
+                Toast.makeText(requireContext(), "Dodano produkt", Toast.LENGTH_SHORT).show()
+            } else {
+                matchingProduct.amount += newProduct.amount
+                mProductViewModel.updateProduct(matchingProduct)
+                Toast.makeText(requireContext(), "Dodano do istniejącego produktu", Toast.LENGTH_SHORT).show()
+            }
             findNavController().navigate(R.id.action_addProductManuallyFragment_to_productListFragment)
         }
     }
@@ -144,5 +158,18 @@ class AddProductManuallyFragment : Fragment() {
                 }
             }
         }
+    }
+
+    /** Returns matching product on success, otherwise null */
+    private fun searchMatchingProduct(thisProduct: ProductEntity, products: List<ProductEntity>): ProductEntity? {
+        // TODO - optimize this process
+        for (product in products) {
+            if (thisProduct.amountType == product.amountType
+                && thisProduct.name.lowercase() == product.name.lowercase()
+                && thisProduct.category.lowercase() == product.category.lowercase()
+                && thisProduct.expirationDate == product.expirationDate
+            ) { return product }
+        }
+        return null
     }
 }

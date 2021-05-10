@@ -35,4 +35,7 @@ interface ProductDao {
     @Query("SELECT * FROM products_table WHERE name LIKE :searchQuery OR category LIKE :searchQuery")
     fun searchMatchingProducts(searchQuery: String): Flow<List<ProductEntity>>
 
+    // TODO - make this work with different formatting, e.g. Fish == fish == FISH etc.
+    //@Query("SELECT * FROM products_table WHERE name LIKE :product.")
+    //fun searchMatchingProductId(product: ProductEntity): Int
 }
