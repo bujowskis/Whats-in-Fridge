@@ -23,6 +23,7 @@ class UpdateProductFragment : Fragment() {
     private val args by navArgs<UpdateProductFragmentArgs>()
 
     private lateinit var mProductViewModel: ProductViewModel
+    private val dateToday = LocalDate.now()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,6 +67,16 @@ class UpdateProductFragment : Fragment() {
                     spinnerUpdateAmountType.setSelection(4)
                     etUpdateAmount.setText((args.currentProduct.amount.toFloat() / 1000).toString())
                 }
+            }
+        }
+        val daysLeft = args.currentProduct.expirationDate.toEpochDay() - dateToday.toEpochDay()
+        when {
+            daysLeft < 0 -> {
+                // Product has expired
+                tvTillExpiration.text = "(po terminie)"
+            }
+            else -> {
+                tvTillExpiration.text = "(dni: $daysLeft)"
             }
         }
 
