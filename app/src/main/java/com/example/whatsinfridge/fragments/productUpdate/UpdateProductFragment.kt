@@ -106,16 +106,31 @@ class UpdateProductFragment : Fragment() {
         val amountTypeString = spinnerUpdateAmountType.selectedItem.toString()
         val amount = etUpdateAmount.text
 
-        val updatedProduct: ProductEntity? = inputCheck(name, category, expirationDate, amountTypeString, amount)
+        val updatedProduct: ProductEntity? = inputCheckUpdate(name, category, expirationDate, amountTypeString, amount)
         if (updatedProduct != null) {
-            updatedProduct.id = args.currentProduct.id
-            mProductViewModel.updateProduct(updatedProduct)
-            Toast.makeText(requireContext(), "Zapisano zmiany", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_updateProductFragment_to_productListFragment)
+            if (updatedProduct.amount <= 0) {
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setPositiveButton("Tak") { _, _ ->
+                    mProductViewModel.deleteSingleProduct(args.currentProduct)
+                    Toast.makeText(requireContext(), "Usunięto ${args.currentProduct.name}", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_updateProductFragment_to_productListFragment)
+                }
+                builder.setNegativeButton("Nie") { _, _ ->
+
+                }
+                builder.setTitle("Usunąć ${args.currentProduct.name}?")
+                builder.setMessage("Ta operacja usunie ${args.currentProduct.name}. Kontynuować?")
+                builder.create().show()
+            } else {
+                updatedProduct.id = args.currentProduct.id
+                mProductViewModel.updateProduct(updatedProduct)
+                Toast.makeText(requireContext(), "Zapisano zmiany", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_updateProductFragment_to_productListFragment)
+            }
         }
     }
 
-    private fun inputCheck(name: String, category: String, expirationDateString: String, amountTypeString: String, amountEditable: Editable): ProductEntity? {
+    private fun inputCheckUpdate(name: String, category: String, expirationDateString: String, amountTypeString: String, amountEditable: Editable): ProductEntity? {
         // Name
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(requireContext(), "Nie podano nazwy", Toast.LENGTH_LONG).show()
@@ -134,6 +149,7 @@ class UpdateProductFragment : Fragment() {
             Toast.makeText(requireContext(), "Nie podano ilości", Toast.LENGTH_LONG).show()
             return null
         }
+        val amountUnconverted = amountEditable.toString().toFloat()
         // amountTypeString will never be empty, as it's retrieved from the spinner
         val amountTypeId: Int
         val amountInt: Int
@@ -143,37 +159,29 @@ class UpdateProductFragment : Fragment() {
                 // 1 piece equals 100 as an integer
                 // it's possible for the user to enter half a piece as "0.5", thus Float
                 amountTypeId = 0
-                amountInt = (amountEditable.toString().toFloat() * 100).toInt()
+                amountInt = (amountUnconverted * 100).toInt()
             }
             "g" -> {
                 // Amount is given explicitly
                 amountTypeId = 1
-                amountInt = amountEditable.toString().toInt()
+                amountInt = amountUnconverted.toInt()
             }
             "kg" -> {
                 // Amount has to be multiplied by 1,000
                 amountTypeId = 1
-                amountInt = (amountEditable.toString().toFloat() * 1000).toInt()
+                amountInt = (amountUnconverted * 1000).toInt()
             }
             "ml" -> {
                 // Amount is given explicitly
                 amountTypeId = 2
-                amountInt = amountEditable.toString().toInt()
+                amountInt = amountUnconverted.toInt()
             }
             "l" -> {
                 // Amount has to be multiplied by 1,000
                 amountTypeId = 2
-                amountInt = (amountEditable.toString().toFloat() * 1000).toInt()
+                amountInt = (amountUnconverted * 1000).toInt()
             }
-            // This will never happen
-            else -> {
-                Toast.makeText(
-                    requireContext(),
-                    "Nie rozpoznano typu wielkości",
-                    Toast.LENGTH_LONG
-                ).show()
-                return null
-            }
+            else -> { throw Exception("did not recognize amountType") }
         }
 
         // Expiration date

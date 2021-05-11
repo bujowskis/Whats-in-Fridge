@@ -53,7 +53,7 @@ class AddProductManuallyFragment : Fragment() {
         val amountTypeString = spinnerAmountType.selectedItem.toString()
         val amount = etAmount.text
 
-        val newProduct: ProductEntity? = inputCheck(name, category, expirationDate, amountTypeString, amount)
+        val newProduct: ProductEntity? = inputCheckAdding(name, category, expirationDate, amountTypeString, amount)
         if (newProduct != null) {
             val matchingProduct = searchMatchingProduct(newProduct, productsList)
             if (matchingProduct == null) {
@@ -68,7 +68,7 @@ class AddProductManuallyFragment : Fragment() {
         }
     }
 
-    private fun inputCheck(name: String, category: String, expirationDateString: String, amountTypeString: String, amountEditable: Editable): ProductEntity? {
+    private fun inputCheckAdding(name: String, category: String, expirationDateString: String, amountTypeString: String, amountEditable: Editable): ProductEntity? {
         // Name
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(requireContext(), "Nie podano nazwy", Toast.LENGTH_LONG).show()
@@ -87,6 +87,11 @@ class AddProductManuallyFragment : Fragment() {
             Toast.makeText(requireContext(), "Nie podano ilości", Toast.LENGTH_LONG).show()
             return null
         }
+        val amountUnconverted = amountEditable.toString().toFloat()
+        if (amountUnconverted <= 0) {
+            Toast.makeText(requireContext(), "Ilość musi być większa niż 0", Toast.LENGTH_LONG).show()
+            return null
+        }
         // amountTypeString will never be empty, as it's retrieved from the spinner
         val amountTypeId: Int
         val amountInt: Int
@@ -96,37 +101,29 @@ class AddProductManuallyFragment : Fragment() {
                 // 1 piece equals 100 as an integer
                 // it's possible for the user to enter half a piece as "0.5", thus Float
                 amountTypeId = 0
-                amountInt = (amountEditable.toString().toFloat() * 100).toInt()
+                amountInt = (amountUnconverted * 100).toInt()
             }
             "g" -> {
                 // Amount is given explicitly
                 amountTypeId = 1
-                amountInt = amountEditable.toString().toInt()
+                amountInt = amountUnconverted.toInt()
             }
             "kg" -> {
                 // Amount has to be multiplied by 1,000
                 amountTypeId = 1
-                amountInt = (amountEditable.toString().toFloat() * 1000).toInt()
+                amountInt = (amountUnconverted * 1000).toInt()
             }
             "ml" -> {
                 // Amount is given explicitly
                 amountTypeId = 2
-                amountInt = amountEditable.toString().toInt()
+                amountInt = amountUnconverted.toInt()
             }
             "l" -> {
                 // Amount has to be multiplied by 1,000
                 amountTypeId = 2
-                amountInt = (amountEditable.toString().toFloat() * 1000).toInt()
+                amountInt = (amountUnconverted * 1000).toInt()
             }
-            // This will never happen
-            else -> {
-                Toast.makeText(
-                    requireContext(),
-                    "Nie rozpoznano typu wielkości",
-                    Toast.LENGTH_LONG
-                ).show()
-                return null
-            }
+            else -> { throw Exception("did not recognize amountType") }
         }
 
         // Expiration date

@@ -58,7 +58,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/etUpdateExpirationDate" />
 
-
     <EditText
         android:id="@+id/etUpdateAmount"
         android:layout_width="wrap_content"
