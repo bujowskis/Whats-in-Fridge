@@ -6,6 +6,8 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +25,7 @@ class AddProductManuallyFragment : Fragment() {
 
     private lateinit var mProductViewModel: ProductViewModel
     private lateinit var productsList: List<ProductEntity>
+    private lateinit var currentSpinnerAmount: Spinner
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +46,71 @@ class AddProductManuallyFragment : Fragment() {
 
         btnAdd.setOnClickListener{
             insertNewProduct()
+        }
+
+        // Simple amount adjusting functionality
+        // TODO - optimize (roundFloatTo2Decimal too)
+        spinnerAmountType.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                when (position) {
+                    0 -> {
+                        // pieces
+                        spinnerAmountPcs.visibility = View.VISIBLE
+                        spinnerAmountKgLiter.visibility = View.INVISIBLE
+                        spinnerAmountGramMl.visibility = View.INVISIBLE
+                        currentSpinnerAmount = spinnerAmountPcs
+                        spinnerAmountPcs.setSelection(2)
+                    }
+                    1 -> {
+                        // grams
+                        spinnerAmountPcs.visibility = View.INVISIBLE
+                        spinnerAmountKgLiter.visibility = View.INVISIBLE
+                        spinnerAmountGramMl.visibility = View.VISIBLE
+                        spinnerAmountGramMl.setSelection(3)
+                        currentSpinnerAmount = spinnerAmountGramMl
+                    }
+                    2 -> {
+                        // kilograms
+                        spinnerAmountPcs.visibility = View.INVISIBLE
+                        spinnerAmountKgLiter.visibility = View.VISIBLE
+                        spinnerAmountGramMl.visibility = View.INVISIBLE
+                        spinnerAmountKgLiter.setSelection(3)
+                        currentSpinnerAmount = spinnerAmountKgLiter
+                    }
+                    3 -> {
+                        // milliliters
+                        spinnerAmountPcs.visibility = View.INVISIBLE
+                        spinnerAmountKgLiter.visibility = View.INVISIBLE
+                        spinnerAmountGramMl.visibility = View.VISIBLE
+                        spinnerAmountGramMl.setSelection(3)
+                        currentSpinnerAmount = spinnerAmountGramMl
+                    }
+                    4 -> {
+                        // liters
+                        spinnerAmountPcs.visibility = View.INVISIBLE
+                        spinnerAmountKgLiter.visibility = View.VISIBLE
+                        spinnerAmountGramMl.visibility = View.INVISIBLE
+                        spinnerAmountKgLiter.setSelection(3)
+                        currentSpinnerAmount = spinnerAmountKgLiter
+                    }
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
+        }
+        fabAddAmount.setOnClickListener {
+            val amountStringNow = etAmount.text.toString()
+            val amountNow: Float = if (amountStringNow.isEmpty()) { 0F } else amountStringNow.toFloat()
+            val amountToAdd = currentSpinnerAmount.selectedItem.toString().toFloat()
+            val result = roundFloatTo2Decimal(amountNow + amountToAdd)
+            etAmount.setText("$result")
+        }
+        fabSubtractAmount.setOnClickListener {
+            val amountStringNow = etAmount.text.toString()
+            val amountNow: Float = if (amountStringNow.isEmpty()) { 0F } else amountStringNow.toFloat()
+            val amountToSubtract = currentSpinnerAmount.selectedItem.toString().toFloat()
+            val result = roundFloatTo2Decimal(amountNow - amountToSubtract).coerceAtLeast(0F)
+            etAmount.setText("$result")
         }
     }
 
@@ -168,5 +236,10 @@ class AddProductManuallyFragment : Fragment() {
             ) { return product }
         }
         return null
+    }
+
+    /** Rounds given Float to the second decimal place to compensate for the fraction part */
+    private fun roundFloatTo2Decimal(number: Float): Float {
+        return (Math.round(number * 100).toFloat() / 100)
     }
 }

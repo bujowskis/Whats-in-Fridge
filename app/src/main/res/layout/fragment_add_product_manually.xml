@@ -42,8 +42,8 @@
         android:hint="Data ważności: yyyy-mm-dd"
         android:inputType="date"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etCategory" />
 
     <EditText
@@ -64,7 +64,65 @@
         android:layout_height="wrap_content"
         android:entries="@array/spinner_amount_type"
         app:layout_constraintBottom_toBottomOf="@id/etAmount"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/etAmount" />
+
+    <!-- TODO - reuse the same spinner instead of changing visibilities (?) -->
+    <Spinner
+        android:id="@+id/spinnerAmountPcs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:entries="@array/spinner_amounts_pieces"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/fabSubtractAmount"
+        app:layout_constraintEnd_toStartOf="@id/fabAddAmount"
+        app:layout_constraintTop_toTopOf="@id/fabSubtractAmount" />
+
+    <Spinner
+        android:id="@+id/spinnerAmountGramMl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:entries="@array/spinner_amounts_grams_milliliters"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/fabSubtractAmount"
+        app:layout_constraintEnd_toStartOf="@id/fabAddAmount"
+        app:layout_constraintTop_toTopOf="@id/fabSubtractAmount" />
+
+    <Spinner
+        android:id="@+id/spinnerAmountKgLiter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:entries="@array/spinner_amounts_kilograms_liters"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/fabSubtractAmount"
+        app:layout_constraintEnd_toStartOf="@id/fabAddAmount"
+        app:layout_constraintTop_toTopOf="@id/fabSubtractAmount" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:contentDescription="add the amount of spinnerAmount"
+        android:src="@drawable/ic_add"
+        app:fabSize="mini"
+        app:layout_constraintEnd_toStartOf="@id/fabSubtractAmount"
+        app:layout_constraintTop_toTopOf="@id/fabSubtractAmount" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabSubtractAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        android:clickable="true"
+        android:contentDescription="subtract the amount of spinnerAmount"
+        android:src="@drawable/ic_remove"
+        app:fabSize="mini"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etAmount" />
 
     <Button
         android:id="@+id/btnAdd"
@@ -75,6 +133,6 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etAmount" />
+        app:layout_constraintTop_toBottomOf="@+id/fabSubtractAmount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

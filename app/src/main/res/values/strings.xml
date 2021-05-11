@@ -10,8 +10,30 @@
         <item>ml</item>
         <item>l</item>
     </string-array>
+    <string-array name="spinner_amounts_pieces">
+        <item>0.25</item>
+        <item>0.5</item>
+        <item>1</item>
+        <item>2</item>
+        <item>5</item>
+        <item>10</item>
+    </string-array>
     <string-array name="spinner_amounts_grams_milliliters">
-        <item></item>
+        <item>10</item>
+        <item>25</item>
+        <item>50</item>
+        <item>100</item>
+        <item>250</item>
+        <item>500</item>
+    </string-array>
+    <string-array name="spinner_amounts_kilograms_liters">
+        <item>0.1</item>
+        <item>0.25</item>
+        <item>0.33</item>
+        <item>0.5</item>
+        <item>1</item>
+        <item>2</item>
+        <item>5</item>
     </string-array>
 
 </resources>
