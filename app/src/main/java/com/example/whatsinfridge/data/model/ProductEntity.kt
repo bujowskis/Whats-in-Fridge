@@ -71,7 +71,7 @@ data class ProductMetadata(
  * 1 -> Fruits
  * 2 -> Dairy
  * 3 -> Meat
- * 4 -> Fish
+ * 4 -> Fish, seafood
  * 5 -> Candy
  * 6 -> Dishes
  * 7 -> Cereals

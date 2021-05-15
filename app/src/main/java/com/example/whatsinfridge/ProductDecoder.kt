@@ -10,7 +10,7 @@ object ProductDecoder {
     fun decodeEAN_13(codeString: String): ProductEntity? {
         println("Testing EAN decoding")
 
-        if (codeString.length != 13 && codeString.length != 12) {
+        if (codeString.length != 13) {
             println("improper length")
             return null
         } // This should never happen
@@ -23,6 +23,8 @@ object ProductDecoder {
         val categoryId = codeString[9].digitToInt()
         val amountTypeId = codeString[10].digitToInt()
         val amountId = codeString[11].digitToInt()
+
+        // TODO - remove these printings
         println("nameId: $nameId")
         println("expirationDateString: $expirationDateString")
         println("categoryId: $categoryId")
@@ -112,6 +114,81 @@ object ProductDecoder {
             7 -> "Brokuł"
             8 -> "Dorsz"
             9 -> "Kurczak pierś"
+
+            // 0 Vegetables
+            10 -> "Sałata"
+            11 -> "Cebula"
+            12 -> "Marchew"
+            13 -> "Awokado"
+            14 -> "Kapusta"
+            15 -> "Kukurydza"
+            16 -> "Bakłażan"
+            17 -> "Szpinak"
+            18 -> "Cukinia"
+            19 -> "Dynia"
+
+            // 1 Fruits
+            20 -> "Jabłka"
+            21 -> "Kiwi"
+            22 -> "Pomarańcze"
+            23 -> "Winogrona"
+            24 -> "Banan"
+            25 -> "Truskawki"
+            26 -> "Ananas"
+            27 -> "Borówki"
+
+            // 2 Dairy
+            28 -> "Ser żółty"
+            29 -> "Mozarella"
+            30 -> "Śmietana"
+            31 -> "Twaróg"
+            32 -> "Jaja"
+            33 -> "Feta"
+            34 -> "Masło"
+            35 -> "Ser pleśniowy"
+            36 -> "Jogurt waniliowy"
+            37 -> "Jogurt truskawkowy"
+
+            // 3 Meat
+            38 -> "Kurczak skrzydełka"
+            39 -> "Kiełbasa"
+            40 -> "Mięso wieprzowe"
+            41 -> "Mięso wołowe"
+            42 -> "Żeberka wołowe"
+            43 -> "Szynka wieprzowa"
+
+            // 4 Fish, sea food
+            44 -> "Łosoś"
+            45 -> "Łosoś wędzony"
+            46 -> "Pstrąg"
+            47 -> "Krewetki"
+
+            // 5 Sweets
+            48 -> "Baton czekoladowy"
+            49 -> "Lody waniliowe"
+            50 -> "Lody czekoladowe"
+            51 -> "Lody truskawkowe"
+
+            // 6 Dishes
+            52 -> "Gołąbki"
+            53 -> "Pulpety"
+            54 -> "Hamburger"
+            55 -> "Mini pizza"
+
+            // 7 Grains
+            56 -> "Makaron"
+            57 -> "Mąka"
+            58 -> "Ryż"
+            59 -> "Chleb"
+
+            // 8 Drinks
+            60 -> "Oranżada"
+            61 -> "Sok jabłkowy"
+            62 -> "Sok pomarańczowy"
+            63 -> "Woda gazowana"
+            64 -> "Woda niegazowana"
+            65 -> "Cola"
+
             else -> null
         }
     }
@@ -129,7 +206,7 @@ object ProductDecoder {
             1 -> "Owoce"
             2 -> "Nabiał"
             3 -> "Mięso"
-            4 -> "Ryby"
+            4 -> "Ryby, owoce morza"
             5 -> "Słodycze"
             6 -> "Potrawy"
             7 -> "Zbożowe"

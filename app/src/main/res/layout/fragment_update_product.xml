@@ -113,6 +113,7 @@
         app:layout_constraintEnd_toStartOf="@id/fabAddAmount"
         app:layout_constraintTop_toTopOf="@id/fabSubtractAmount" />
 
+    <!-- TODO - as regular buttons (?) -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddAmount"
         android:layout_width="wrap_content"

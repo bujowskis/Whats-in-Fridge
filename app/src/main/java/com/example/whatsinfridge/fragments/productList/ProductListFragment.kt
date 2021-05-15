@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.whatsinfridge.ProductDecoder
 import com.example.whatsinfridge.R
 import com.example.whatsinfridge.data.model.ProductEntity
 import com.example.whatsinfridge.data.viewmodel.ProductViewModel
@@ -17,6 +18,7 @@ import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import java.util.*
 
+@ExperimentalStdlibApi
 class ProductListFragment : Fragment(),
     SearchView.OnQueryTextListener,
     ItemVisibilityInterface,
@@ -122,6 +124,15 @@ class ProductListFragment : Fragment(),
                 intentIntegrator.initiateScan()
                 true
             }
+            R.id.item_add_exemplary -> {
+                val productsArrayList = ProductDecoder.decodeQR("WiF_EAN_13\n0002111120011\n0012111180017\n0102107010132\n0272107041143\n0022111132272\n0282110022169\n0092108143185\n0622109078270\n0372107122016\n0582201287140")
+                for (product in productsArrayList) {
+                    mProductViewModel.addSingleProduct(product)
+                }
+                Toast.makeText(requireContext(), "Dodano produkty", Toast.LENGTH_SHORT).show()
+
+                true
+            }
             else -> false
         }
     }
@@ -187,5 +198,4 @@ class ProductListFragment : Fragment(),
         builder.setMessage("Czy na pewno chcesz usunąć wszystkie produkty?")
         builder.create().show()
     }
-
 }

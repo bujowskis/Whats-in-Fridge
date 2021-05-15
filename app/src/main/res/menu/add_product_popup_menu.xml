@@ -5,6 +5,13 @@
     <!-- TODO - consider removing the icons -->
 
     <item
+        android:id="@+id/item_add_exemplary"
+        android:iconTint="@color/black"
+        android:title="(przykładowy QR)"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/item_add_manually"
         android:icon="@drawable/ic_add_manually"
         android:iconTint="@color/black"
