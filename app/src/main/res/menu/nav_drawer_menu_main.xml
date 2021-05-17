@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/productListFragment"
+        android:title="Produkty" />
+
+    <item
+        android:id="@+id/item_recipe_list"
+        android:title="Przepisy" />
+
+    <item
+        android:id="@+id/item_shopping_list"
+        android:title="Listy zakupów" />
+
+    <item
+        android:id="@+id/addProductManuallyFragment"
+        android:title="Dodaj jeden" />
+
+</menu>

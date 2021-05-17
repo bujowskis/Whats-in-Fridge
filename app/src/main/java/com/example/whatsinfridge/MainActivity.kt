@@ -4,13 +4,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.whatsinfridge.data.model.ProductEntity
 import com.example.whatsinfridge.data.viewmodel.ProductViewModel
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
+import kotlinx.android.synthetic.main.activity_main.*
 
 @ExperimentalStdlibApi
 class MainActivity : AppCompatActivity() {
@@ -18,14 +24,32 @@ class MainActivity : AppCompatActivity() {
     // TODO - Dependency injection with dagger hilt (?)
 
     private lateinit var mProductViewModel: ProductViewModel
-    private lateinit var productsList: List<ProductEntity>
+    lateinit var productsList: List<ProductEntity>
 
+    // Navigation drawer
+    private lateinit var navController: NavController
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var navOnDestinationChangedListener: NavController.OnDestinationChangedListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setupActionBarWithNavController(findNavController(R.id.hostFragment))
+        // Navigation Drawer TODO - make the drawer close after second burger icon click
+        navController = findNavController(R.id.hostFragment)
+        drawerLayout = findViewById(R.id.drawerLayoutMain)
+        navViewMain.setupWithNavController(navController)
+
+        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        // TODO - is needed?
+        navOnDestinationChangedListener = NavController.OnDestinationChangedListener { controller, destination, arguments ->
+            if (destination.id == R.id.fragmentProductList) {
+
+            }
+        }
 
         mProductViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         mProductViewModel.readAllData.observe(this, { products: List<ProductEntity> ->
@@ -34,10 +58,19 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    // Makes it possible to go back using the return arrow of NavController
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.hostFragment)
-        return navController.navigateUp() || super.onSupportNavigateUp()
+        return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    // TODO - is needed? (navDestChangedListener)
+    override fun onResume() {
+        super.onResume()
+        navController.addOnDestinationChangedListener(navOnDestinationChangedListener)
+    }
+    override fun onPause() {
+        super.onPause()
+        navController.removeOnDestinationChangedListener(navOnDestinationChangedListener)
     }
 
     // Handle scanning the products
