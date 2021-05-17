@@ -41,7 +41,8 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = findViewById(R.id.drawerLayoutMain)
         navViewMain.setupWithNavController(navController)
 
-        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
+        val topDestinations = setOf(R.id.productListFragment, R.id.recipeListFragment, R.id.shoppingListFragment, R.id.financesMainFragment)
+        appBarConfiguration = AppBarConfiguration(topDestinations, drawerLayout) // navController.graph
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         // TODO - is needed?

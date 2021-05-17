@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/productListFragment"
         android:name="com.example.whatsinfridge.fragments.productList.ProductListFragment"
-        android:label="Lista"
+        android:label="Lista produktów"
         tools:layout="@layout/fragment_product_list" >
         <action
             android:id="@+id/action_productListFragment_to_addProductManuallyFragment"
@@ -37,5 +37,46 @@
         <argument
             android:name="currentProduct"
             app:argType="com.example.whatsinfridge.data.model.ProductEntity" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoppingListFragment"
+        android:name="com.example.whatsinfridge.fragments.shoppingList.ShoppingListFragment"
+        android:label="Listy zakupów"
+        tools:layout="@layout/fragment_shopping_list" >
+        <action
+            android:id="@+id/action_shoppingListFragment_to_singleShoppingListFragment"
+            app:destination="@id/singleShoppingListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/singleShoppingListFragment"
+        android:name="com.example.whatsinfridge.fragments.singleShoppingList.SingleShoppingListFragment"
+        android:label="Lista zakupów"
+        tools:layout="@layout/fragment_single_shopping_list" >
+        <action
+            android:id="@+id/action_singleShoppingListFragment_to_shoppingListFragment"
+            app:destination="@id/shoppingListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/financesMainFragment"
+        android:name="com.example.whatsinfridge.fragments.financesMain.FinancesMainFragment"
+        android:label="Finanse"
+        tools:layout="@layout/fragment_finances_main" />
+    <fragment
+        android:id="@+id/recipeListFragment"
+        android:name="com.example.whatsinfridge.fragments.recipeList.RecipeListFragment"
+        android:label="Twoje przepisy"
+        tools:layout="@layout/fragment_recipe_list" >
+        <action
+            android:id="@+id/action_recipeListFragment_to_singleRecipeFragment"
+            app:destination="@id/singleRecipeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/singleRecipeFragment"
+        android:name="com.example.whatsinfridge.fragments.singleRecipe.SingleRecipeFragment"
+        android:label="Przepis"
+        tools:layout="@layout/fragment_single_recipe" >
+        <action
+            android:id="@+id/action_singleRecipeFragment_to_recipeListFragment"
+            app:destination="@id/recipeListFragment" />
     </fragment>
 </navigation>

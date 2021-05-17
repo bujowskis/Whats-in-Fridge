@@ -6,15 +6,15 @@
         android:title="Produkty" />
 
     <item
-        android:id="@+id/item_recipe_list"
-        android:title="Przepisy" />
-
-    <item
-        android:id="@+id/item_shopping_list"
+        android:id="@+id/shoppingListFragment"
         android:title="Listy zakupów" />
 
     <item
-        android:id="@+id/addProductManuallyFragment"
-        android:title="Dodaj jeden" />
+        android:id="@+id/recipeListFragment"
+        android:title="Przepisy" />
+
+    <item
+        android:id="@+id/financesMainFragment"
+        android:title="Finanse" />
 
 </menu>
