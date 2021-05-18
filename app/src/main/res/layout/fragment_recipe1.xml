@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragmentRecipe1"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp">
+    android:padding="4dp"
+    tools:context=".fragments.singleRecipe.Recipe1Fragment">
+
+    <!-- Look of a single shopping list acquired from a recipe -->
 
     <TextView
-        android:id="@+id/tvTitleRecipe1"
+        android:id="@+id/tvSLRecipe1Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Kurczak słodko-kwaśny"
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +25,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitleRecipe1">
+        app:layout_constraintTop_toBottomOf="@id/tvSLRecipe1Name">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,88 +35,7 @@
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/tvIngredient1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Kurczak pierś"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvIngredient1Amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1500/200g"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/teal_200"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/tvIngredient2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ryż"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvIngredient2Amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="250/100g"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/teal_200"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/tvIngredient3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Papryka czerwona"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvIngredient3Amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1/1szt."
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/teal_200"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/tvIngredient4"
+                android:id="@+id/tvSLRecipe1Product1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Marchewka"
@@ -123,25 +44,37 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvIngredient4Amount"
+                android:id="@+id/tvSLRecipe1Product1Amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0/2"
+                android:layout_marginEnd="16dp"
+                android:text="2szt."
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toStartOf="@id/checkBoxSLRecipe1Product1" />
+
+            <CheckBox
+                android:id="@+id/checkBoxSLRecipe1Product1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTintMode="multiply"
+                android:scaleX="1.3"
+                android:scaleY="1.3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:background="@color/teal_200"
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/tvIngredient5"
+                android:id="@+id/tvSLRecipe1Product2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ananas"
@@ -150,25 +83,37 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvIngredient5Amount"
+                android:id="@+id/tvSLRecipe1Product2Amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0/100g"
+                android:layout_marginEnd="16dp"
+                android:text="100g"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toStartOf="@id/checkBoxSLRecipe1Product2" />
+
+            <CheckBox
+                android:id="@+id/checkBoxSLRecipe1Product2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTintMode="multiply"
+                android:scaleX="1.3"
+                android:scaleY="1.3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:background="@color/teal_200"
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/tvIngredient6"
+                android:id="@+id/tvSLRecipe1Product3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ketchup"
@@ -177,25 +122,37 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvIngredient6Amount"
+                android:id="@+id/tvSLRecipe1Product3Amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0/50g"
+                android:layout_marginEnd="16dp"
+                android:text="50g"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toStartOf="@id/checkBoxSLRecipe1Product3" />
+
+            <CheckBox
+                android:id="@+id/checkBoxSLRecipe1Product3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTintMode="multiply"
+                android:scaleX="1.3"
+                android:scaleY="1.3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:background="@color/teal_200"
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/tvIngredient7"
+                android:id="@+id/tvSLRecipe1Product4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Miód"
@@ -204,43 +161,41 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvIngredient7Amount"
+                android:id="@+id/tvSLRecipe1Product4Amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0/25g"
+                android:layout_marginEnd="16dp"
+                android:text="25g"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toStartOf="@id/checkBoxSLRecipe1Product4" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/teal_200"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/tvIngredient8"
+            <CheckBox
+                android:id="@+id/checkBoxSLRecipe1Product4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ocet ryżowy"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:buttonTintMode="multiply"
+                android:scaleX="1.3"
+                android:scaleY="1.3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvIngredient8Amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0/25ml"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddProductToSLRecipe1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_add"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

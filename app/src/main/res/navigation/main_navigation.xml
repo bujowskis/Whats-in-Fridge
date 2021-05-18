@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/addProductManuallyFragment"
         android:name="com.example.whatsinfridge.fragments.productAddManually.AddProductManuallyFragment"
-        android:label="Dodaj"
+        android:label="Dodaj nowy produkt"
         tools:layout="@layout/fragment_add_product_manually" >
         <action
             android:id="@+id/action_addProductManuallyFragment_to_productListFragment"
@@ -41,7 +41,7 @@
     <fragment
         android:id="@+id/shoppingListFragment"
         android:name="com.example.whatsinfridge.fragments.shoppingList.ShoppingListFragment"
-        android:label="Listy zakupów"
+        android:label="Twoje listy zakupów"
         tools:layout="@layout/fragment_shopping_list" >
         <action
             android:id="@+id/action_shoppingListFragment_to_singleShoppingListFragment"
@@ -59,7 +59,7 @@
     <fragment
         android:id="@+id/financesMainFragment"
         android:name="com.example.whatsinfridge.fragments.financesMain.FinancesMainFragment"
-        android:label="Finanse"
+        android:label="Twoje finanse"
         tools:layout="@layout/fragment_finances_main" />
     <fragment
         android:id="@+id/recipeListFragment"
@@ -78,5 +78,13 @@
         <action
             android:id="@+id/action_singleRecipeFragment_to_recipeListFragment"
             app:destination="@id/recipeListFragment" />
+        <action
+            android:id="@+id/action_singleRecipeFragment_to_recipe1Fragment"
+            app:destination="@id/recipe1Fragment" />
     </fragment>
+    <fragment
+        android:id="@+id/recipe1Fragment"
+        android:name="com.example.whatsinfridge.fragments.singleRecipe.Recipe1Fragment"
+        android:label="Lista zakupów"
+        tools:layout="@layout/fragment_recipe1" />
 </navigation>

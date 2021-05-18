@@ -4,13 +4,12 @@
     android:id="@+id/fragmentRecipe1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp">
+    android:padding="4dp">
 
     <TextView
         android:id="@+id/tvTitleRecipe1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Kurczak słodko-kwaśny"
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +54,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:background="@color/teal_200"
             android:padding="8dp">
 
@@ -82,7 +81,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:background="@color/teal_200"
             android:padding="8dp">
 
@@ -109,7 +108,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:background="@color/teal_200"
             android:padding="8dp">
 
@@ -126,7 +125,7 @@
                 android:id="@+id/tvIngredient4Amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0/2"
+                android:text="0/2szt."
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -136,7 +135,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:background="@color/teal_200"
             android:padding="8dp">
 
@@ -163,7 +162,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:background="@color/teal_200"
             android:padding="8dp">
 
@@ -190,7 +189,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:background="@color/teal_200"
             android:padding="8dp">
 
@@ -213,37 +212,10 @@
                 app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-<!--
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/teal_200"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/tvIngredient8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ocet ryżowy"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvIngredient8Amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0/25ml"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
--->
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddRecipe1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

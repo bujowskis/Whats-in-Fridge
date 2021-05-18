@@ -5,8 +5,8 @@
     android:id="@+id/rowProductLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4sp"
-    android:padding="8sp">
+    android:layout_marginTop="4dp"
+    android:padding="8dp">
 
     <TextView
         android:id="@+id/tvName"

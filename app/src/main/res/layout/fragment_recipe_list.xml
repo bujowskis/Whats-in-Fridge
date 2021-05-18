@@ -4,17 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
+    android:padding="4dp"
     tools:context=".fragments.recipeList.RecipeListFragment">
 
     <TextView
         android:id="@+id/tvPleaseChoose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Wybierz przepis"
         android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,9 +37,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="4"
+            android:text="30min"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvRecipeIngredients1" />
+
+        <TextView
             android:id="@+id/tvRecipeIngredients1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ems="7"
             android:text="3/8 składników"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -53,7 +61,7 @@
         android:id="@+id/conLayoutRecipe2"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:background="@color/teal_200"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,9 +78,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="4"
+            android:text="10min"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvRecipeIngredients2" />
+
+        <TextView
             android:id="@+id/tvRecipeIngredients2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ems="7"
             android:text="5/6 składników"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -84,7 +102,7 @@
         android:id="@+id/conLayoutRecipe3"
         android:layout_width="0dp"
         android:layout_height="80dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:background="@color/teal_200"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -101,9 +119,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="4"
+            android:text="1h 5min"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvRecipeIngredients3" />
+
+        <TextView
             android:id="@+id/tvRecipeIngredients3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ems="7"
             android:text="5/5 składników"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -111,11 +139,52 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/conLayoutRecipe4"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/teal_200"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/conLayoutRecipe3">
+
+        <TextView
+            android:id="@+id/tvRecipeName4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gofry"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="4"
+            android:text="44min"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvRecipeIngredients4" />
+
+        <TextView
+            android:id="@+id/tvRecipeIngredients4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="7"
+            android:text="2/5 składników"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddRecipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:id="@+id/fabAddRecipe"
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:focusable="true"
