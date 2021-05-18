@@ -3,18 +3,22 @@
 
     <item
         android:id="@+id/productListFragment"
+        android:icon="@drawable/ic_fridge"
         android:title="Produkty" />
 
     <item
         android:id="@+id/shoppingListFragment"
+        android:icon="@drawable/ic_shopping_cart"
         android:title="Listy zakupów" />
 
     <item
         android:id="@+id/recipeListFragment"
+        android:icon="@drawable/ic_menu_book"
         android:title="Przepisy" />
 
     <item
         android:id="@+id/financesMainFragment"
+        android:icon="@drawable/ic_savings"
         android:title="Finanse" />
 
 </menu>
