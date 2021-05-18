@@ -73,7 +73,7 @@ class ProductListAdapter(
         holder.itemView.tvAmount.text = amountFullString
         // Conditional component, depending on expirationDate and dateToday
         val daysLeft = currentProduct.expirationDate.toEpochDay() - dateToday.toEpochDay()
-        when {
+        when { // TODO - better method of setting colors
             daysLeft < 0 -> {
                 // Product has expired
                 holder.itemView.tvExpirationDays.text = "(po terminie)"
@@ -92,7 +92,7 @@ class ProductListAdapter(
             else -> {
                 // No need to worry
                 holder.itemView.tvExpirationDays.text = ""
-                holder.itemView.setBackgroundColor(Color.parseColor("#eefcd9"))
+                holder.itemView.setBackgroundColor(Color.parseColor("#add2e4"))
             }
         }
 
