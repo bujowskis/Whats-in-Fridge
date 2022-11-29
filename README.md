@@ -16,7 +16,6 @@ Find the [project summary here](https://docs.google.com/document/d/1lBNZOwv8fNoJ
 ## <a name="acknowledgments"></a> Acknowledgments:
 - **Jakub Riegel** ([LinkedIn](https://www.linkedin.com/in/jakubriegel/), [GitHub](https://github.com/jakubriegel)) - mentor, patron of the project
 - **Piotr Lazarek** ([LinkedIn](https://www.linkedin.com/in/piotrlazarek/)) - mentor, tutor on how to prepare for the submission and project presentation
-- **Anna Skierska** ([LinkedIn](https://www.linkedin.com/in/anna-skierska-20b419195/)) - mentor, tutor on how to prepare for the submission
 - **AKAI (English: Academic Circle of Internet Applications)** ([LinkedIn](https://www.linkedin.com/company/akai-pp/), [Website](https://akai.org.pl/), [GitHub](https://github.com/akai-org)) - students' organization at Poznań University of Technology, which gave me the needed insight into programming android apps
 
 [Contents](#contents)
